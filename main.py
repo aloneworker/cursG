@@ -4,6 +4,7 @@ def load_names(filename):
     with open(filename, 'r', encoding='utf-8') as file:
         return [line.strip() for line in file]
 
+
 class Girl:
     def __init__(self, name="", features=[]):
         self.name = name
@@ -89,20 +90,20 @@ def main():
                 print("妹子離開了。")
         if girl:
             leave_message = girl.leave_check()
-            if leave_message and "是否要加入本子" in leave_message:
-                choice = input("你同意嗎？(yes/no): ")
-                if choice.lower() == 'yes':
-                    name = random.choice(girl_names)
-                    features = random.sample(possible_features, random.randint(0, 3))
-                    girl = Girl(name, features)
-                    print(f"妹子{name}加入了你的本子，她的特徵是：{', '.join(features)}")
+            if leave_message:
+                if "是否要加入本子" in leave_message:
+                    choice = input("你同意嗎？(yes/no): ")
+                    if choice.lower() == 'yes':
+                        name = random.choice(girl_names)
+                        features = random.sample(possible_features, random.randint(0, 3))
+                        girl = Girl(name, features)
+                        print(f"妹子{name}加入了你的本子，她的特徵是：{', '.join(features)}")
+                    else:
+                        print("妹子離開了。")
                     girl = None
                 else:
-                    print("妹子離開了。")
+                    print(leave_message)
                     girl = None
-            elif leave_message:
-                print(leave_message)
-                girl = None
         elif leave_message:
             print(leave_message)
             girl = None
