@@ -1,7 +1,13 @@
 import random
 
+def load_names(filename):
+    with open(filename, 'r', encoding='utf-8') as file:
+        return [line.strip() for line in file]
+
 class Girl:
-    def __init__(self):
+    def __init__(self, name, features):
+        self.name = name
+        self.features = features
         self.moods = ["閒聊", "無聊", "認真"]
         self.current_mood = random.choice(self.moods)
         self.displeasure = 0
@@ -48,6 +54,8 @@ class Player:
 def main():
     player = Player()
     girl = None
+    girl_names = load_names("girl_names.txt")
+    possible_features = ["巨乳", "翹臀", "長腿", "正妹", "蛇腰"]
     while True:
         print(f"\n當前咒力：{player.get_mana()}")
         if not girl:
@@ -67,10 +75,21 @@ def main():
         elif choice in ['2', '3'] and girl:
             mood = "閒聊" if choice == '2' else "認真"
             print(girl.chat(mood))
-            leave_message = girl.leave_check()
-            if leave_message:
-                print(leave_message)
+        leave_message = girl.leave_check()
+        if leave_message and "是否要加入本子" in leave_message:
+            choice = input("你同意嗎？(yes/no): ")
+            if choice.lower() == 'yes':
+                name = random.choice(girl_names)
+                features = random.sample(possible_features, random.randint(0, 3))
+                girl = Girl(name, features)
+                print(f"妹子{name}加入了你的本子，她的特徵是：{', '.join(features)}")
                 girl = None
+            else:
+                print("妹子離開了。")
+                girl = None
+        elif leave_message:
+            print(leave_message)
+            girl = None
         elif choice == '4':
             print("遊戲結束。")
             break
