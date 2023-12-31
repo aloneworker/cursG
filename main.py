@@ -92,8 +92,9 @@ def main():
             leave_message = girl.leave_check()
             if leave_message:
                 if "是否要加入本子" in leave_message:
-                    choice = input("你同意嗎？(yes/no): ")
-                    if choice.lower() == 'yes':
+                    print(leave_message)
+                    choice = input("選擇 1 同意, 2 拒絕: ")
+                    if choice == '1':
                         name = random.choice(girl_names)
                         features = random.sample(possible_features, random.randint(0, 3))
                         girl = Girl(name, features)
