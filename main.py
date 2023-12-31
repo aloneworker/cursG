@@ -58,7 +58,35 @@ def main():
     possible_features = ["巨乳", "翹臀", "長腿", "正妹", "蛇腰"]
     
     while True:
-        # 原始代碼保持不變，直到...
+        print(f"\n當前咒力：{player.get_mana()}")
+        if not girl:
+            print("1. 招喚妹子術")
+        else:
+            print("2. 與妹子閒聊")
+            print("3. 與妹子認真聊天")
+        print("4. 結束遊戲")
+
+        choice = input("請選擇你的行動：")
+        if choice == '1' and not girl:
+            girl = player.cast_summon_girl()
+            if girl:
+                print("你成功招喚了一位妹子！")
+            else:
+                print("咒力不足！")
+        elif choice in ['2', '3'] and girl:
+            mood = "閒聊" if choice == '2' else "認真"
+            print(girl.chat(mood))
+        leave_message = girl.leave_check()
+        if leave_message and "是否要加入本子" in leave_message:
+            choice = input("你同意嗎？(yes/no): ")
+            if choice.lower() == 'yes':
+                name = random.choice(girl_names)
+                features = random.sample(possible_features, random.randint(0, 3))
+                girl = Girl(name, features)
+                print(f"妹子{name}加入了你的本子，她的特徵是：{', '.join(features)}")
+                girl = None
+            else:
+                print("妹子離開了。")
         if girl:
             leave_message = girl.leave_check()
             if leave_message and "是否要加入本子" in leave_message:
