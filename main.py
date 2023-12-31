@@ -38,6 +38,10 @@ class Girl:
             return "妹子很興奮，問你是否要加入本子。"
         return None
 
+class Player:
+    def __init__(self):
+        self.mana = 100
+        self.book = []  # 存儲本子中的妹子
 
     def cast_summon_girl(self):
         if self.mana >= 10:
