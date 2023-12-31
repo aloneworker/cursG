@@ -4,7 +4,6 @@ def load_names(filename):
     with open(filename, 'r', encoding='utf-8') as file:
         return [line.strip() for line in file]
 
-
 class Girl:
     def __init__(self, name="", features=[]):
         self.name = name
@@ -16,11 +15,9 @@ class Girl:
 
     def chat(self, choice):
         if choice == self.current_mood:
-            # 玩家選擇的聊天項目跟妹子的心情一樣
-            result = random.choices(["高興", "厭煩", "無感"], weights=[70, 10, 20])[0]
+            result = random.choices(["高興", "厭煩", "無感"], weights=[50, 30, 20])[0]
         else:
-            # 玩家選擇的聊天項目跟妹子的心情不同
-            result = random.choices(["高興", "厭煩", "無感"], weights=[10, 70, 20])[0]
+            result = random.choices(["高興", "厭煩", "無感"], weights=[30, 50, 20])[0]
 
         if result == "高興":
             self.excitement += 1
@@ -46,7 +43,7 @@ class Player:
     def cast_summon_girl(self):
         if self.mana >= 10:
             self.mana -= 10
-            return Girl()  # 在這裡不提供名字和特徵
+            return Girl()
         else:
             return None
 
@@ -63,7 +60,6 @@ def main():
     possible_features = ["巨乳", "翹臀", "長腿", "正妹", "蛇腰"]
     
     while True:
-        # 顯示選項
         print(f"\n當前咒力：{player.get_mana()}")
         if not girl:
             print("1. 招喚妹子術")
@@ -85,20 +81,8 @@ def main():
             girl = random.choice(player.book)
             print(f"你通過本子術呼叫了{girl.name}來聊天！")
         elif choice in ['3', '4'] and girl:
-            mood = "閒聊" if choice == '2' else "認真"
+            mood = "閒聊" if choice == '3' else "認真"
             print(girl.chat(mood))
-        leave_message = girl.leave_check()
-        if leave_message and "是否要加入本子" in leave_message:
-            choice = input("你同意嗎？(yes/no): ")
-            if choice.lower() == 'yes':
-                name = random.choice(girl_names)
-                features = random.sample(possible_features, random.randint(0, 3))
-                girl = Girl(name, features)
-                print(f"妹子{name}加入了你的本子，她的特徵是：{', '.join(features)}")
-                girl = None
-            else:
-                print("妹子離開了。")
-        if girl:
             leave_message = girl.leave_check()
             if leave_message:
                 if "是否要加入本子" in leave_message:
@@ -108,6 +92,7 @@ def main():
                         name = random.choice(girl_names)
                         features = random.sample(possible_features, random.randint(0, 3))
                         girl = Girl(name, features)
+                        player.add_girl_to_book(girl)
                         print(f"妹子{name}加入了你的本子，她的特徵是：{', '.join(features)}")
                     else:
                         print("妹子離開了。")
@@ -115,10 +100,7 @@ def main():
                 else:
                     print(leave_message)
                     girl = None
-        elif leave_message:
-            print(leave_message)
-            girl = None
-        elif choice == '4':
+        elif choice == '5':
             print("遊戲結束。")
             break
         else:
