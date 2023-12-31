@@ -38,9 +38,6 @@ class Girl:
             return "妹子很興奮，問你是否要加入本子。"
         return None
 
-class Player:
-    def __init__(self):
-        self.mana = 100
 
     def cast_summon_girl(self):
         if self.mana >= 10:
@@ -48,6 +45,9 @@ class Player:
             return Girl()  # 在這裡不提供名字和特徵
         else:
             return None
+
+    def add_girl_to_book(self, girl):
+        self.book.append(girl)
 
     def get_mana(self):
         return self.mana
@@ -59,13 +59,16 @@ def main():
     possible_features = ["巨乳", "翹臀", "長腿", "正妹", "蛇腰"]
     
     while True:
+        # 顯示選項
         print(f"\n當前咒力：{player.get_mana()}")
         if not girl:
             print("1. 招喚妹子術")
+            if player.book:
+                print("2. 本子術")
         else:
-            print("2. 與妹子閒聊")
-            print("3. 與妹子認真聊天")
-        print("4. 結束遊戲")
+            print("3. 與妹子閒聊")
+            print("4. 與妹子認真聊天")
+        print("5. 結束遊戲")
 
         choice = input("請選擇你的行動：")
         if choice == '1' and not girl:
@@ -74,7 +77,10 @@ def main():
                 print("你成功招喚了一位妹子！")
             else:
                 print("咒力不足！")
-        elif choice in ['2', '3'] and girl:
+        elif choice == '2' and not girl and player.book:
+            girl = random.choice(player.book)
+            print(f"你通過本子術呼叫了{girl.name}來聊天！")
+        elif choice in ['3', '4'] and girl:
             mood = "閒聊" if choice == '2' else "認真"
             print(girl.chat(mood))
         leave_message = girl.leave_check()
