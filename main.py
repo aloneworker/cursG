@@ -5,6 +5,8 @@ def load_names(filename):
         return [line.strip() for line in file]
 
 class Girl:
+    RELATIONSHIP_STAGES = ["陌生", "朋友", "情侶", "夫妻"]
+
     def __init__(self, name="", features=[]):
         self.name = name
         self.features = features
@@ -12,7 +14,17 @@ class Girl:
         self.current_mood = random.choice(self.moods)
         self.displeasure = 0
         self.excitement = 0
-        self.relationship = 0  # 新增：玩家和妹子的關係
+        self.relationship = 0
+
+    def update_relationship(self):
+        if self.relationship > 6:
+            return self.RELATIONSHIP_STAGES[3]  # 夫妻
+        elif self.relationship > 4:
+            return self.RELATIONSHIP_STAGES[2]  # 情侶
+        elif self.relationship > 2:
+            return self.RELATIONSHIP_STAGES[1]  # 朋友
+        else:
+            return self.RELATIONSHIP_STAGES[0]  # 陌生
 
     def chat(self, choice):
         if choice == self.current_mood:
@@ -24,7 +36,8 @@ class Girl:
             self.excitement += 1
             if self.excitement > 3:  # 當高興超過3次，關係增加
                 self.relationship += 1
-                return "妹子感到高興了！關係增加，妹子離開了。", True
+                relationship_stage = self.update_relationship()
+                return f"妹子感到高興了！關係增加，現在是{relationship_stage}。妹子離開了。", True
             return "妹子感到高興了！", False
         elif result == "厭煩":
             self.displeasure += 1
@@ -61,7 +74,7 @@ class Player:
             self.mana -= 3
             print("本子中的妹子：")
             for index, girl in enumerate(self.book):
-                print(f"{index + 1}. {girl.name}")
+                print(f"{index + 1}. {girl.name} - {girl.update_relationship()}")
             return True
         else:
             print("咒力不足或本子中沒有妹子！")
