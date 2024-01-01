@@ -1,3 +1,6 @@
+
+from girl import Girl
+
 class Player:
     """
     Player類別用於表示遊戲中的玩家角色。
