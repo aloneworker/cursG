@@ -28,11 +28,7 @@ def main():
         if choice == '1' and not girl:
             girl = player.cast_summon_girl()
             if girl:
-                name = random.choice(girl_names)
-                features = random.sample(possible_features, random.randint(0, 3))
-                girl.name = name
-                girl.features = features
-                print(f"你成功招喚了{girl.name}！她的特徵是：{', '.join(features)}")
+                print("你成功招喚了一位妹子！")
             else:
                 print("咒力不足！")
         elif choice == '2' and not girl and player.book:
@@ -47,8 +43,12 @@ def main():
                     print(leave_message)
                     add_choice = input("選擇 1 同意, 2 拒絕: ")
                     if add_choice == '1':
+                        name = random.choice(girl_names)
+                        features = random.sample(possible_features, random.randint(0, 3))
+                        girl.name = name
+                        girl.features = features
                         player.add_girl_to_book(girl)
-                        print(f"{girl.name}加入了你的本子。")
+                        print(f"{girl.name}加入了你的本子。她的特徵是：{', '.join(features)}")
                     girl = None
                 else:
                     print(leave_message)
