@@ -24,7 +24,11 @@ def main():
         if choice == '1' and not girl:
             girl = player.cast_summon_girl()
             if girl:
-                print("你成功招喚了一位神秘的妹子！")
+                name = random.choice(girl_names)
+                features = random.sample(possible_features, random.randint(0, 3))
+                girl.name = name
+                girl.features = features
+                print(f"你成功招喚了{girl.name}！她的特徵是：{', '.join(features)}")
             else:
                 print("咒力不足！")
         elif choice == '2' and not girl and player.book:
