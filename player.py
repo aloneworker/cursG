@@ -84,9 +84,11 @@ def interact_with_girl(self, girl):
 
     def chat_with_girl(self, girl):
         # 聊天功能的實現保持不變
+        pass
 
     def date_with_girl(self, girl):
         # 約會功能的實現保持不變
+        pass
 
     def hotel_with_girl(self, girl):
         """
@@ -102,7 +104,6 @@ def interact_with_girl(self, girl):
         else:
             print("咒力不足！")
 
-在這個版本中，我們為Player類添
 
     def get_mana(self):
         """
