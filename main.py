@@ -20,8 +20,8 @@ def main():
                 print("2. 本子術")
             print("3. 結束遊戲")
         else:
-            print("3. 與妹子閒聊")
-            print("4. 與妹子認真聊天")
+            print("3. 與妹子閒聊 (消耗5咒力)")
+            print("4. 與妹子約會 (消耗15咒力)")
             print("5. 結束對話")
 
         choice = input("請選擇你的行動：")
@@ -32,27 +32,28 @@ def main():
             else:
                 print("咒力不足！")
         elif choice == '2' and not girl and player.book:
-            player.cast_book_spell()
+            if player.cast_book_spell():
+                select = int(input("選擇要互動的妹子編號：")) - 1
+                if 0 <= select < len(player.book):
+                    girl = player.book[select]
+                    print(f"你選擇了{girl.name}。")
+                else:
+                    print("無效的選擇！")
         elif choice in ['3', '4'] and girl:
-            mood = "閒聊" if choice == '3' else "認真"
+            if choice == '3' and player.mana >= 5:
+                player.mana -= 5
+                mood = "閒聊"
+            elif choice == '4' and player.mana >= 15:
+                player.mana -= 15
+                mood = "約會"
+            else:
+                print("咒力不足！")
+                continue
+
             chat_result, leave = girl.chat(mood)
             print(chat_result)
             if leave:
-                leave_message = girl.leave_check()
-                if leave_message and "是否要加入本子" in leave_message:
-                    print(leave_message)
-                    add_choice = input("選擇 1 同意, 2 拒絕: ")
-                    if add_choice == '1':
-                        name = random.choice(girl_names)
-                        features = random.sample(possible_features, random.randint(0, 3))
-                        girl.name = name
-                        girl.features = features
-                        player.add_girl_to_book(girl)
-                        print(f"{girl.name}加入了你的本子。她的特徵是：{', '.join(features)}")
-                    girl = None
-                else:
-                    print(leave_message)
-                    girl = None
+                girl = None
         elif choice == '5' and girl:
             girl = None
         elif choice == '3' and not girl:
