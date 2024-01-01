@@ -12,6 +12,7 @@ class Girl:
         self.current_mood = random.choice(self.moods)
         self.displeasure = 0
         self.excitement = 0
+        self.relationship = 0  # 新增：玩家和妹子的關係
 
     def chat(self, choice):
         if choice == self.current_mood:
@@ -21,12 +22,17 @@ class Girl:
 
         if result == "高興":
             self.excitement += 1
-            return "妹子感到高興了！"
+            if self.excitement > 3:  # 當高興超過3次，關係增加
+                self.relationship += 1
+                return "妹子感到高興了！關係增加，妹子離開了。", True
+            return "妹子感到高興了！", False
         elif result == "厭煩":
             self.displeasure += 1
-            return "妹子感到厭煩了。"
+            if self.displeasure > 5:  # 當厭煩超過5次，妹子離開
+                return "妹子感到厭煩了。妹子離開了。", True
+            return "妹子感到厭煩了。", False
         else:
-            return "妹子無感。"
+            return "妹子無感。", False
 
     def leave_check(self):
         if self.displeasure > 5:
@@ -49,6 +55,17 @@ class Player:
 
     def add_girl_to_book(self, girl):
         self.book.append(girl)
+
+    def cast_book_spell(self):
+        if self.mana >= 3 and self.book:
+            self.mana -= 3
+            print("本子中的妹子：")
+            for index, girl in enumerate(self.book):
+                print(f"{index + 1}. {girl.name}")
+            return True
+        else:
+            print("咒力不足或本子中沒有妹子！")
+            return False
 
     def get_mana(self):
         return self.mana
@@ -77,29 +94,20 @@ def main():
                 print("你成功招喚了一位妹子！")
             else:
                 print("咒力不足！")
-        elif choice == '2' and not girl and player.book:
-            girl = random.choice(player.book)
-            print(f"你通過本子術呼叫了{girl.name}來聊天！")
+        elif choice == '2' and not girl:
+            if player.cast_book_spell():
+                select = int(input("選擇要聊天的妹子編號：")) - 1
+                if 0 <= select < len(player.book):
+                    girl = player.book[select]
+                    print(f"你選擇了與{girl.name}聊天！")
+                else:
+                    print("無效的選擇！")
         elif choice in ['3', '4'] and girl:
             mood = "閒聊" if choice == '3' else "認真"
-            print(girl.chat(mood))
-            leave_message = girl.leave_check()
-            if leave_message:
-                if "是否要加入本子" in leave_message:
-                    print(leave_message)
-                    choice = input("選擇 1 同意, 2 拒絕: ")
-                    if choice == '1':
-                        name = random.choice(girl_names)
-                        features = random.sample(possible_features, random.randint(0, 3))
-                        girl = Girl(name, features)
-                        player.add_girl_to_book(girl)
-                        print(f"妹子{name}加入了你的本子，她的特徵是：{', '.join(features)}")
-                    else:
-                        print("妹子離開了。")
-                    girl = None
-                else:
-                    print(leave_message)
-                    girl = None
+            chat_result, leave = girl.chat(mood)
+            print(chat_result)
+            if leave:
+                girl = None
         elif choice == '5':
             print("遊戲結束。")
             break
