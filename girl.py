@@ -75,4 +75,19 @@ class Girl:
         if choice == self.current_mood:
             result = random.choices(["高興", "厭煩", "無感"], weights=[50, 30, 20])[0]
         else:
-            result = random.choices(["高興", "厭煩", "無感"], weights=[30
+            result = random.choices(["高興", "厭煩", "無感"], weights=[30, 50, 20])[0]
+
+        if result == "高興":
+            self.excitement += 1
+            if self.excitement > 3:
+                self.relationship += 1
+                relationship_stage = self.update_relationship()
+                return f"妹子感到高興了！關係增加，現在是{relationship_stage}。妹子離開了。", True
+            return "妹子感到高興了！", False
+        elif result == "厭煩":
+            self.displeasure += 1
+            if self.displeasure > 5:
+                return "妹子感到厭煩了。妹子離開了。", True
+            return "妹子感到厭煩了。", False
+        else:
+            return "妹子無感。", False
