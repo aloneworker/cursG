@@ -91,3 +91,17 @@ class Girl:
             return "妹子感到厭煩了。", False
         else:
             return "妹子無感。", False
+
+
+    def leave_check(self):
+        """
+        檢查妹子是否達到離開的條件。
+
+        返回:
+            str: 描述妹子離開的消息，或者問玩家是否要加入本子的提議。
+        """
+        if self.displeasure > 5:
+            return "妹子因為反感太多而離開了。"
+        elif self.excitement > 3:
+            return "妹子很興奮，問你是否要加入本子。"
+        return None
