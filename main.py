@@ -31,24 +31,24 @@ def main():
                 print("你成功招喚了一位妹子！")
             else:
                 print("咒力不足！")
-
-    elif choice == '2' and not girl and player.book:
-        if player.cast_book_spell():
-            girl_index = int(input("選擇要互動的妹子編號：")) - 1
-            if 0 <= girl_index < len(player.book):
-                girl = player.book[girl_index]
-                interaction = input(f"選擇與{girl.name}的互動方式 (1. 聊天 2. 約會): ")
-                if interaction == '1':
-                    # 聊天邏輯
-                    pass  # 這裡添加聊天相關的代碼
-                elif interaction == '2':
-                    # 約會邏輯
-                    print(f"你和{girl.name}去了一次愉快的約會。")
-                    # 這裡可以添加更詳細的約會相關代碼
+    
+        elif choice == '2' and not girl and player.book:
+            if player.cast_book_spell():
+                girl_index = int(input("選擇要互動的妹子編號：")) - 1
+                if 0 <= girl_index < len(player.book):
+                    girl = player.book[girl_index]
+                    interaction = input(f"選擇與{girl.name}的互動方式 (1. 聊天 2. 約會): ")
+                    if interaction == '1':
+                        # 聊天邏輯
+                        pass  # 這裡添加聊天相關的代碼
+                    elif interaction == '2':
+                        # 約會邏輯
+                        print(f"你和{girl.name}去了一次愉快的約會。")
+                        # 這裡可以添加更詳細的約會相關代碼
+                    else:
+                        print("無效的選擇！")
                 else:
-                    print("無效的選擇！")
-            else:
-                print("無效的編號！")
+                    print("無效的編號！")
         girl = None  # 確保對話結束後重置girl變量
         elif choice == '5' and girl:
             girl = None
