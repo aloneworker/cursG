@@ -3,48 +3,52 @@ from player import Player
 import random
 
 def load_names(filename):
+    """
+    從給定的文件中加載名字。
+
+    參數:
+        filename (str): 包含名字的文件名。
+
+    返回:
+        list: 包含名字的列表。
+    """
     with open(filename, 'r', encoding='utf-8') as file:
         return [line.strip() for line in file]
 
 def main():
+    """
+    遊戲的主函數，負責處理遊戲循環和玩家互動。
+    """
     player = Player()
-    girl = None
     girl_names = load_names("girl_names.txt")
     possible_features = ["巨乳", "翹臀", "長腿", "正妹", "蛇腰"]
     
     while True:
         print(f"\n當前咒力：{player.get_mana()}")
-        if not girl:
-            print("1. 招喚妹子術")
-            if player.book:
-                print("2. 本子術")
-        else:
-            print("3. 與妹子閒聊")
-            print("4. 與妹子認真聊天")
-        print("5. 結束遊戲")
+        if player.mana < 3 and not player.book:
+            print("咒力不足，且本子中沒有妹子！")
+            break
+
+        print("1. 招喚妹子術")
+        if player.book:
+            print("2. 本子術")
+        print("3. 結束遊戲")
 
         choice = input("請選擇你的行動：")
-        if choice == '1' and not girl:
+        if choice == '1':
             girl = player.cast_summon_girl()
             if girl:
-                print("你成功招喚了一位妹子！")
+                name = random.choice(girl_names)
+                features = random.sample(possible_features, random.randint(0, 3))
+                girl.name = name
+                girl.features = features
+                print(f"你成功招喚了{girl.name}！她的特徵是：{', '.join(features)}")
+                player.add_girl_to_book(girl)
             else:
                 print("咒力不足！")
-        elif choice == '2' and not girl:
-            if player.cast_book_spell():
-                select = int(input("選擇要聊天的妹子編號：")) - 1
-                if 0 <= select < len(player.book):
-                    girl = player.book[select]
-                    print(f"你選擇了與{girl.name}聊天！")
-                else:
-                    print("無效的選擇！")
-        elif choice in ['3', '4'] and girl:
-            mood = "閒聊" if choice == '3' else "認真"
-            chat_result, leave = girl.chat(mood)
-            print(chat_result)
-            if leave:
-                girl = None
-        elif choice == '5':
+        elif choice == '2' and player.book:
+            player.cast_book_spell()
+        elif choice == '3':
             print("遊戲結束。")
             break
         else:
