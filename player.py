@@ -44,9 +44,9 @@ class Player:
         """
         if self.mana >= 3 and self.book:
             self.mana -= 3
+            print("本子中的妹子：")
             for index, girl in enumerate(self.book):
-                girl.update_action()
-                print(f"{index + 1}. {girl.name} - {girl.update_relationship()} - 正在{girl.action}")
+                print(f"{index + 1}. {girl.name} - 特徵：{', '.join(girl.features)}")
             return True
         else:
             print("咒力不足或本子中沒有妹子！")
