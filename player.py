@@ -1,13 +1,12 @@
-
 from girl import Girl
 
 class Player:
     """
-    Player類別用於表示遊戲中的玩家角色。
+    玩家類，用於表示遊戲中的玩家。
 
     屬性:
         mana (int): 玩家的咒力值。
-        book (list): 存儲本子中的妹子列表。
+        book (list): 存儲本子中的妹子。
     """
 
     def __init__(self):
@@ -32,7 +31,7 @@ class Player:
         將妹子加入到本子中。
 
         參數:
-            girl (Girl): 要加入本子的妹子對象。
+            girl (Girl): 要加入本子的妹子。
         """
         self.book.append(girl)
 
