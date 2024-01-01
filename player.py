@@ -60,7 +60,7 @@ class Player:
         else:
             print("咒力不足或本子中沒有妹子！")
             return False
-    def interact_with_girl(self, girl):
+def interact_with_girl(self, girl):
         """
         與本子中的妹子互動。
 
@@ -71,26 +71,38 @@ class Player:
         print("1. 聊天 (消耗5點咒力)")
         if girl.relationship > 1:  # 如果是朋友或情侶
             print("2. 約會 (消耗20點咒力)")
+            if girl.relationship > 2 and random.randint(1, 3) == 1:  # 情侶且有機會
+                print("3. 去旅館 (消耗20點咒力)")
 
         choice = input("選擇你的行動（輸入數字）：")
         if choice == '1':
-            if self.mana >= 5:
-                self.mana -= 5
-                mood_choice = input("選擇聊天話題 (1. 閒聊 2. 認真)：")
-                mood = "閒聊" if mood_choice == '1' else "認真"
-                chat_result, leave = girl.chat(mood)
-                print(chat_result)
-            else:
-                print("咒力不足！")
-        elif choice == '2' and girl.relationship > 1:
-            if self.mana >= 20:
-                self.mana -= 20
-                girl.relationship += 2  # 增加關係值
-                print(f"你和{girl.name}進行了愉快的約會，你們的關係更進一步了。")
-            else:
-                print("咒力不足！")
+            self.chat_with_girl(girl)
+        elif choice == '2':
+            self.date_with_girl(girl)
+        elif choice == '3' and girl.relationship > 2:
+            self.hotel_with_girl(girl)
 
+    def chat_with_girl(self, girl):
+        # 聊天功能的實現保持不變
 
+    def date_with_girl(self, girl):
+        # 約會功能的實現保持不變
+
+    def hotel_with_girl(self, girl):
+        """
+        與妹子去旅館。
+
+        參數:
+            girl (Girl): 要去旅館的妹子對象。
+        """
+        if self.mana >= 20:
+            self.mana -= 20
+            # 在這裡添加去旅館的後續事件和影響
+            print(f"你和{girl.name}去了旅館，度過了美好的時光。")
+        else:
+            print("咒力不足！")
+
+在這個版本中，我們為Player類添
 
     def get_mana(self):
         """
