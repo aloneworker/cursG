@@ -60,7 +60,7 @@ class Player:
         else:
             print("咒力不足或本子中沒有妹子！")
             return False
-def interact_with_girl(self, girl):
+    def interact_with_girl(self, girl):
         """
         與本子中的妹子互動。
 
