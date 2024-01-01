@@ -31,6 +31,7 @@ def main():
                 print("你成功招喚了一位妹子！")
             else:
                 print("咒力不足！")
+
     elif choice == '2' and not girl and player.book:
         if player.cast_book_spell():
             girl_index = int(input("選擇要互動的妹子編號：")) - 1
