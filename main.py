@@ -19,44 +19,40 @@ def main():
             if player.book:
                 print("2. 本子術")
             print("3. 結束遊戲")
-        else:
-            print("3. 與妹子閒聊 (消耗5咒力)")
-            print("4. 與妹子約會 (消耗15咒力)")
-            print("5. 結束對話")
 
         choice = input("請選擇你的行動：")
         if choice == '1' and not girl:
             girl = player.cast_summon_girl()
             if girl:
-                print("你成功招喚了一位妹子！")
+                print("你成功招喚了一位神秘的妹子！")
             else:
                 print("咒力不足！")
         elif choice == '2' and not girl and player.book:
-            if player.cast_book_spell():
+            if player.mana >= 3:
+                player.mana -= 3
+                print("本子中的妹子：")
+                for index, girl in enumerate(player.book):
+                    print(f"{index + 1}. {girl.name} - 狀態：{girl.update_relationship()}")
                 select = int(input("選擇要互動的妹子編號：")) - 1
                 if 0 <= select < len(player.book):
                     girl = player.book[select]
-                    print(f"你選擇了{girl.name}。")
+                    interaction = input(f"選擇與{girl.name}的互動方式：1. 聊天 (5咒力) 2. 約會 (15咒力): ")
+                    if interaction == '1' and player.mana >= 5:
+                        player.mana -= 5
+                        print(f"你選擇了與{girl.name}聊天。")
+                        # 聊天邏輯
+                    elif interaction == '2' and player.mana >= 15:
+                        player.mana -= 15
+                        print(f"你選擇了與{girl.name}約會。")
+                        # 約會邏輯
+                    else:
+                        print("咒力不足或無效的選擇！")
+                        girl = None
                 else:
                     print("無效的選擇！")
-        elif choice in ['3', '4'] and girl:
-            if choice == '3' and player.mana >= 5:
-                player.mana -= 5
-                mood = "閒聊"
-            elif choice == '4' and player.mana >= 15:
-                player.mana -= 15
-                mood = "約會"
             else:
                 print("咒力不足！")
-                continue
-
-            chat_result, leave = girl.chat(mood)
-            print(chat_result)
-            if leave:
-                girl = None
-        elif choice == '5' and girl:
-            girl = None
-        elif choice == '3' and not girl:
+        elif choice == '3':
             print("遊戲結束。")
             break
         else:
