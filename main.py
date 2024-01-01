@@ -31,25 +31,28 @@ def main():
                 print("你成功招喚了一位妹子！")
             else:
                 print("咒力不足！")
-    
         elif choice == '2' and not girl and player.book:
-            if player.cast_book_spell():
-                girl_index = int(input("選擇要互動的妹子編號：")) - 1
-                if 0 <= girl_index < len(player.book):
-                    girl = player.book[girl_index]
-                    interaction = input(f"選擇與{girl.name}的互動方式 (1. 聊天 2. 約會): ")
-                    if interaction == '1':
-                        # 聊天邏輯
-                        pass  # 這裡添加聊天相關的代碼
-                    elif interaction == '2':
-                        # 約會邏輯
-                        print(f"你和{girl.name}去了一次愉快的約會。")
-                        # 這裡可以添加更詳細的約會相關代碼
-                    else:
-                        print("無效的選擇！")
+            player.cast_book_spell()
+        elif choice in ['3', '4'] and girl:
+            mood = "閒聊" if choice == '3' else "認真"
+            chat_result, leave = girl.chat(mood)
+            print(chat_result)
+            if leave:
+                leave_message = girl.leave_check()
+                if leave_message and "是否要加入本子" in leave_message:
+                    print(leave_message)
+                    add_choice = input("選擇 1 同意, 2 拒絕: ")
+                    if add_choice == '1':
+                        name = random.choice(girl_names)
+                        features = random.sample(possible_features, random.randint(0, 3))
+                        girl.name = name
+                        girl.features = features
+                        player.add_girl_to_book(girl)
+                        print(f"{girl.name}加入了你的本子。她的特徵是：{', '.join(features)}")
+                    girl = None
                 else:
-                    print("無效的編號！")
-            girl = None  # 確保對話結束後重置girl變量
+                    print(leave_message)
+                    girl = None
         elif choice == '5' and girl:
             girl = None
         elif choice == '3' and not girl:
