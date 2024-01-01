@@ -49,7 +49,7 @@ def main():
                         print("無效的選擇！")
                 else:
                     print("無效的編號！")
-        girl = None  # 確保對話結束後重置girl變量
+            girl = None  # 確保對話結束後重置girl變量
         elif choice == '5' and girl:
             girl = None
         elif choice == '3' and not girl:
