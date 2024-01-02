@@ -48,7 +48,28 @@ class Girl:
 
     def update_relationship(self):
         """
-        根據關係值更新與玩家的關係階段。
+        根據關係值更新與玩家的關係階段，並檢查是否發生感情升級。
+
+        返回:
+            str: 描述感情變化的消息，如果沒有發生變化則返回None。
+        """
+        previous_stage = self.get_current_relationship_stage()
+        if self.relationship > 6:
+            current_stage = self.RELATIONSHIP_STAGES[3]  # 夫妻
+        elif self.relationship > 4:
+            current_stage = self.RELATIONSHIP_STAGES[2]  # 情侶
+        elif self.relationship > 2:
+            current_stage = self.RELATIONSHIP_STAGES[1]  # 朋友
+        else:
+            current_stage = self.RELATIONSHIP_STAGES[0]  # 陌生
+
+        if current_stage != previous_stage:
+            return f"你和{self.name}的關係升級為{current_stage}了！"
+        return None
+
+    def get_current_relationship_stage(self):
+        """
+        獲取當前的關係階段。
 
         返回:
             str: 當前的關係階段。
@@ -61,7 +82,6 @@ class Girl:
             return self.RELATIONSHIP_STAGES[1]  # 朋友
         else:
             return self.RELATIONSHIP_STAGES[0]  # 陌生
-
     def chat(self, choice):
         """
         與妹子進行聊天。根據玩家選擇的話題和妹子的當前心情，決定聊天的結果。
