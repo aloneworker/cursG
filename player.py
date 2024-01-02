@@ -186,9 +186,13 @@ class Player:
         """
         if self.mana >= 200:
             self.mana -= 200
-            girl.relationship = 7  # 直接將關係值升級到夫妻階段
-            print(f"你向{girl.name}求婚，她欣然接受了！現在你們是夫妻了。")
-            girl.update_relationship()
+            # 求婚有成功的機會
+            if random.randint(1, 2) == 1:
+                girl.relationship = 7  # 將關係值升級到夫妻階段
+                print(f"你向{girl.name}求婚，她欣然接受了！現在你們是夫妻了。")
+                girl.update_relationship()
+            else:
+                print(f"你向{girl.name}求婚，但她覺得還不是時候。")
         else:
             print("咒力不足，無法求婚！")
     def get_mana(self):
