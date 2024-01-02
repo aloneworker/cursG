@@ -132,6 +132,16 @@ class Player:
             print(f"你和{girl.name}去了旅館，度過了美好的時光。")
         else:
             print("咒力不足！")
+    def open_backend(self):
+        """
+        打開後台功能，查看本子中所有妹子的詳細信息並將咒力增加到999。
+        """
+        self.mana = 999
+        print("後台已打開，咒力增加到999！")
+        print("本子中的妹子詳細信息：")
+        for girl in self.book:
+            girl.update_action()  # 確保獲取最新的行動狀態
+            print(f"名稱：{girl.name}, 狀態：{girl.update_relationship()}, 行動：{girl.action}")
 
 
     def get_mana(self):
