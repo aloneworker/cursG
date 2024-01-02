@@ -172,9 +172,10 @@ class Player:
             if random.randint(1, 3) == 1:
                 print(f"你向{girl.name}告白了，但不幸地被拒絕了。")
             else:
-                girl.relationship = 5  # 直接將關係值升級到情侶階段
+                girl.relationship_stage = "情侶"
+                girl.relationship = 0  # 清除關係值
                 print(f"你向{girl.name}告白，她欣然接受了！現在你們是情侶了。")
-                girl.update_relationship()
+               
         else:
             print("咒力不足，無法告白！")
     def propose_marriage(self, girl):
@@ -188,9 +189,11 @@ class Player:
             self.mana -= 200
             # 求婚有成功的機會
             if random.randint(1, 2) == 1:
-                girl.relationship = 7  # 將關係值升級到夫妻階段
+                # 求婚成功
+                girl.relationship_stage = "夫妻"
+                girl.relationship = 0  # 清除關係值
                 print(f"你向{girl.name}求婚，她欣然接受了！現在你們是夫妻了。")
-                girl.update_relationship()
+ 
             else:
                 print(f"你向{girl.name}求婚，但她覺得還不是時候。")
         else:
