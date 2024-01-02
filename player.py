@@ -73,8 +73,13 @@ class Player:
             print("2. 約會 (消耗20點咒力)")
             if girl.relationship > 2 and random.randint(1, 3) == 1:  # 情侶且有機會
                 print("3. 去旅館 (消耗20點咒力)")
-
+        # 檢查是否可以進行告白
+        if girl.get_current_relationship_stage() == "朋友" and girl.relationship == 4:
+            print("5. 告白 (消耗20點咒力)")
+ 
         choice = input("選擇你的行動（輸入數字）：")
+        if choice == '5' and girl.get_current_relationship_stage() == "朋友" and girl.relationship == 4:
+            self.attempt_confession(girl)
         if choice == '1':
             self.chat_with_girl(girl)
         elif choice == '2':
@@ -149,6 +154,24 @@ class Player:
             print(f"不滿程度：{girl.displeasure}")
             print(f"興奮程度：{girl.excitement}")
             print("-" * 30)  # 分隔線
+
+    def attempt_confession(self, girl):
+        """
+        嘗試向妹子告白。
+
+        參數:
+            girl (Girl): 玩家將要告白的妹子。
+        """
+        if self.mana >= 20:
+            self.mana -= 20
+            if random.randint(1, 3) == 1:
+                print(f"你向{girl.name}告白了，但不幸地被拒絕了。")
+            else:
+                girl.relationship = 5  # 直接將關係值升級到情侶階段
+                print(f"你向{girl.name}告白，她欣然接受了！現在你們是情侶了。")
+                girl.update_relationship()
+        else:
+            print("咒力不足，無法告白！")
     def get_mana(self):
         """
         獲取玩家當前的咒力值。
