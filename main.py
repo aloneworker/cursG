@@ -19,6 +19,7 @@ def main():
             if player.book:
                 print("2. 本子術")
             print("3. 結束遊戲")
+            print("4. 打開後台 (僅限開發者使用)")
         else:
             print("3. 與妹子閒聊")
             print("4. 與妹子認真聊天")
@@ -55,6 +56,8 @@ def main():
                     girl = None
         elif choice == '5' and girl:
             girl = None
+        elif choice == '4':
+            player.open_backend()
         elif choice == '3' and not girl:
             print("遊戲結束。")
             break
