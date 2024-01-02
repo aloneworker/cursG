@@ -29,7 +29,7 @@ class Girl:
         self.excitement = 0
         self.relationship = 0
         self.action = random.choice(self.ACTIONS)
-        self.male_friends = []
+        self.male_friends = {}  # 將male_friends定義為字典
 
     def update_action(self):
         """
@@ -49,9 +49,9 @@ class Girl:
             flirt_random = random.randint(1, 4)
             if self.action == "被搭訕" and random.randint(1, 4) == 1:
                 male_name = f"男子{len(self.male_friends) + 1}"
-                self.male_friends[male_name] = random.randint(0, 1)  # 隨機生成S值
+                self.male_friends[male_name] = random.randint(1, 10)  # 為新男子隨機生成S值
                 print(f"{self.name}在{self.action}時認識了一位新朋友：{male_name}！")
-
+     
             elif flirt_random == 2:  # 1/4的機率被帶去酒吧
                 self.action = "酒吧"
                 print(f"{self.name}被帶去了酒吧。")
