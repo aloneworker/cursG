@@ -76,10 +76,15 @@ class Player:
         # 檢查是否可以進行告白
         if girl.get_current_relationship_stage() == "朋友" and girl.relationship == 4:
             print("5. 告白 (消耗20點咒力)")
- 
+         # 檢查是否可以進行求婚
+        if girl.get_current_relationship_stage() == "情侶" and girl.relationship == 6:
+            print("6. 求婚 (消耗200點咒力)")
+            
         choice = input("選擇你的行動（輸入數字）：")
         if choice == '5' and girl.get_current_relationship_stage() == "朋友" and girl.relationship == 4:
             self.attempt_confession(girl)
+        if choice == '6' and girl.get_current_relationship_stage() == "情侶" and girl.relationship == 6:
+            self.propose_marriage(girl)
         if choice == '1':
             self.chat_with_girl(girl)
         elif choice == '2':
@@ -172,6 +177,20 @@ class Player:
                 girl.update_relationship()
         else:
             print("咒力不足，無法告白！")
+    def propose_marriage(self, girl):
+        """
+        向妹子求婚。
+
+        參數:
+            girl (Girl): 玩家將要求婚的妹子。
+        """
+        if self.mana >= 200:
+            self.mana -= 200
+            girl.relationship = 7  # 直接將關係值升級到夫妻階段
+            print(f"你向{girl.name}求婚，她欣然接受了！現在你們是夫妻了。")
+            girl.update_relationship()
+        else:
+            print("咒力不足，無法求婚！")
     def get_mana(self):
         """
         獲取玩家當前的咒力值。
