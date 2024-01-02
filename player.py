@@ -83,12 +83,35 @@ class Player:
             self.hotel_with_girl(girl)
 
     def chat_with_girl(self, girl):
-        # 聊天功能的實現保持不變
-        pass
+        """
+        與妹子聊天。
+
+        參數:
+            girl (Girl): 要聊天的妹子對象。
+        """
+        if self.mana >= 5:
+            self.mana -= 5
+            mood_choice = input("選擇聊天話題 (1. 閒聊 2. 認真)：")
+            mood = "閒聊" if mood_choice == '1' else "認真"
+            chat_result, leave = girl.chat(mood)
+            print(chat_result)
+        else:
+            print("咒力不足！")
 
     def date_with_girl(self, girl):
-        # 約會功能的實現保持不變
-        pass
+        """
+        與妹子約會。
+
+        參數:
+            girl (Girl): 要約會的妹子對象。
+        """
+        if self.mana >= 20:
+            self.mana -= 20
+            girl.relationship += 2  # 增加關係值
+            print(f"你和{girl.name}進行了愉快的約會，你們的關係更進一步了。")
+        else:
+            print("咒力不足！")
+
 
     def hotel_with_girl(self, girl):
         """
