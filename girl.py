@@ -33,8 +33,8 @@ class Girl:
 
     def update_action(self):
         """
-        更新妹子的行動。如果有男性朋友，則增加與男性朋友互動的行動選項。
-        如果妹子的當前行動是被搭訕，則有1/3的機會認識男子，並將他加入到本子中。
+        更新妹子的行動。根據當前行動（逛街或工作）決定是否觸發被搭訕事件。
+        被搭訕時可能認識新的男子或被帶去酒吧。
         """
         if self.male_friends:
             all_actions = self.ACTIONS + self.MALE_ACTIONS
@@ -42,9 +42,18 @@ class Girl:
             all_actions = self.ACTIONS
 
         self.action = random.choice(all_actions)
-        if self.action == "被搭訕" and random.randint(1, 3) == 1:
-            male_name = f"男子{len(self.male_friends) + 1}"
-            self.male_friends.append(male_name)
+
+        # 當妹子在逛街或工作時，可能觸發被搭訕事件
+        if self.action in ["逛街", "工作"] and random.randint(1, 2) == 1:
+            self.action = "被搭訕"
+            flirt_random = random.randint(1, 4)
+            if flirt_random == 1:  # 1/4的機率認識男子
+                male_name = f"男子{len(self.male_friends) + 1}"
+                self.male_friends.append(male_name)
+                print(f"{self.name}在{self.action}時認識了一位新朋友：{male_name}！")
+            elif flirt_random == 2:  # 1/4的機率被帶去酒吧
+                self.action = "酒吧"
+                print(f"{self.name}被帶去了酒吧。")
 
     def update_relationship(self):
         """
