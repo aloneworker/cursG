@@ -61,16 +61,17 @@ class Girl:
         """
         根據關係值更新與玩家的關係階段。
         """
-        if self.relationship_stage == "朋友" and self.relationship > 3:
-            # 準備進行告白
-            pass
-        elif self.relationship_stage == "情侶" and self.relationship > 4:
-            # 準備進行結婚
-            pass
-        elif self.relationship > 2:
-            # 從陌生升級為朋友
+        if self.relationship_stage == "陌生" and self.relationship > 2:
             self.relationship_stage = "朋友"
             self.relationship = 0  # 清除關係值
+            return "升級為朋友"
+        elif self.relationship_stage == "情侶" and self.relationship > 4:
+            # 等待求婚
+            pass
+        elif self.relationship_stage == "朋友" and self.relationship > 3:
+            # 等待告白
+            pass
+        return None
 
     
     def get_relationship_stage(self):
