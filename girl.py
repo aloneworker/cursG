@@ -75,7 +75,7 @@ class Girl:
 
         if current_stage != previous_stage:
             return f"你和{self.name}的關係升級為{current_stage}了！"
-        return None
+        return self.current_relationship_stage
     def get_relationship_stage(self):
         """
         獲取當前的關係階段。
