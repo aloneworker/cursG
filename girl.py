@@ -47,10 +47,11 @@ class Girl:
         if self.action in ["逛街", "工作"] and random.randint(1, 2) == 1:
             self.action = "被搭訕"
             flirt_random = random.randint(1, 4)
-            if flirt_random == 1:  # 1/4的機率認識男子
+            if self.action == "被搭訕" and random.randint(1, 4) == 1:
                 male_name = f"男子{len(self.male_friends) + 1}"
-                self.male_friends.append(male_name)
+                self.male_friends[male_name] = random.randint(0, 1)  # 隨機生成S值
                 print(f"{self.name}在{self.action}時認識了一位新朋友：{male_name}！")
+
             elif flirt_random == 2:  # 1/4的機率被帶去酒吧
                 self.action = "酒吧"
                 print(f"{self.name}被帶去了酒吧。")
