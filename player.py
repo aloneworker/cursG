@@ -1,5 +1,5 @@
 from girl import Girl
-
+import random
 class Player:
     """
     玩家類，用於表示遊戲中的玩家。
