@@ -95,6 +95,9 @@ class Player:
             mood = "閒聊" if mood_choice == '1' else "認真"
             chat_result, leave = girl.chat(mood)
             print(chat_result)
+            relationship_message = girl.update_relationship()
+            if relationship_message:
+                print(relationship_message)
         else:
             print("咒力不足！")
 
@@ -109,6 +112,9 @@ class Player:
             self.mana -= 20
             girl.relationship += 2  # 增加關係值
             print(f"你和{girl.name}進行了愉快的約會，你們的關係更進一步了。")
+            relationship_message = girl.update_relationship()
+            if relationship_message:
+                print(relationship_message)
         else:
             print("咒力不足！")
 
