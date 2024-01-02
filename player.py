@@ -38,7 +38,7 @@ class Player:
     def cast_book_spell(self):
         """
         使用本子術查看本子中的妹子，並提供與她們互動的選項。
-
+    
         返回:
             bool: 本子術是否成功執行。
         """
@@ -47,9 +47,9 @@ class Player:
             print("本子中的妹子：")
             for index, girl in enumerate(self.book):
                 features_str = ', '.join(girl.features) if girl.features else "無特徵"
-                relationship_stage = girl.update_relationship()
+                relationship_stage = girl.get_relationship_stage()  # 使用 get_relationship_stage 方法
                 print(f"{index + 1}. [{relationship_stage}] {girl.name} - 特徵：{features_str}")
-
+    
             girl_index = int(input("選擇要互動的妹子編號：")) - 1
             if 0 <= girl_index < len(self.book):
                 selected_girl = self.book[girl_index]
@@ -60,6 +60,8 @@ class Player:
         else:
             print("咒力不足或本子中沒有妹子！")
             return False
+
+    
     def interact_with_girl(self, girl):
         """
         與本子中的妹子互動。
