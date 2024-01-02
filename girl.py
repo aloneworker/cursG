@@ -27,6 +27,7 @@ class Girl:
         self.current_mood = random.choice(self.moods)
         self.displeasure = 0
         self.excitement = 0
+        self.relationship_stage = "陌生"
         self.relationship = 0
         self.action = random.choice(self.ACTIONS)
         self.male_friends = {}  # 將male_friends定義為字典
@@ -65,20 +66,20 @@ class Girl:
         """
     def update_relationship(self):
         """
-        根據關係值更新與玩家的關係階段，並返回關係階段的描述。
-
-        返回:
-            str: 當前的關係階段描述。
+        根據關係值更新與玩家的關係階段。
         """
-        if self.relationship > 6:
-            self.current_relationship_stage = self.RELATIONSHIP_STAGES[3]  # 夫妻
-        elif self.relationship > 4:
-            self.current_relationship_stage = self.RELATIONSHIP_STAGES[2]  # 情侶
+        if self.relationship_stage == "朋友" and self.relationship > 3:
+            # 準備進行告白
+            pass
+        elif self.relationship_stage == "情侶" and self.relationship > 4:
+            # 準備進行結婚
+            pass
         elif self.relationship > 2:
-            self.current_relationship_stage = self.RELATIONSHIP_STAGES[1]  # 朋友
-        else:
-            self.current_relationship_stage = self.RELATIONSHIP_STAGES[0]  # 陌生
-        return self.current_relationship_stage
+            # 從陌生升級為朋友
+            self.relationship_stage = "朋友"
+            self.relationship = 0  # 清除關係值
+
+    
     def get_relationship_stage(self):
         """
         獲取當前的關係階段。
