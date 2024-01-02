@@ -140,8 +140,8 @@ class Player:
         for girl in self.book:
             print(f"名稱：{girl.name}")
             print(f"與玩家的感情：{girl.update_relationship()}")
-            print(f"認識的男子：{', '.join(girl.male_friends) if girl.male_friends else '無'}")
-            # 假設每個男子與妹子的感情值暫時無法獲得，所以這裡未顯示
+            male_friends_info = ", ".join([f"{name}: S值 {s_value}" for name, s_value in girl.male_friends.items()])
+            print(f"認識的男子：{male_friends_info if male_friends_info else '無'}")
             print(f"行動：{girl.action}")
             print(f"身體特徵：{', '.join(girl.features) if girl.features else '無特徵'}")
             print(f"不滿程度：{girl.displeasure}")
