@@ -59,13 +59,6 @@ class Girl:
 
     def update_relationship(self):
         """
-        根據關係值更新與玩家的關係階段，並檢查是否發生感情升級。
-
-        返回:
-            str: 描述感情變化的消息，如果沒有發生變化則返回None。
-        """
-    def update_relationship(self):
-        """
         根據關係值更新與玩家的關係階段。
         """
         if self.relationship_stage == "朋友" and self.relationship > 3:
