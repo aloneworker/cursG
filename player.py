@@ -134,15 +134,19 @@ class Player:
             print("咒力不足！")
     def open_backend(self):
         """
-        打開後台功能，查看本子中所有妹子的詳細信息並將咒力增加到999。
+        打開後台功能，顯示本子中所有妹子的詳細信息。
         """
-        self.mana = 999
-        print("後台已打開，咒力增加到999！")
-        print("本子中的妹子詳細信息：")
+        print("後台已打開，顯示詳細信息：")
         for girl in self.book:
-            girl.update_action()  # 確保獲取最新的行動狀態
-            print(f"名稱：{girl.name}, 狀態：{girl.update_relationship()}, 行動：{girl.action}")
-
+            print(f"名稱：{girl.name}")
+            print(f"與玩家的感情：{girl.update_relationship()}")
+            print(f"認識的男子：{', '.join(girl.male_friends) if girl.male_friends else '無'}")
+            # 假設每個男子與妹子的感情值暫時無法獲得，所以這裡未顯示
+            print(f"行動：{girl.action}")
+            print(f"身體特徵：{', '.join(girl.features) if girl.features else '無特徵'}")
+            print(f"不滿程度：{girl.displeasure}")
+            print(f"興奮程度：{girl.excitement}")
+            print("-" * 30)  # 分隔線
 
     def get_mana(self):
         """
