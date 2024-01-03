@@ -81,14 +81,8 @@ class Girl:
         返回:
             str: 當前的關係階段。
         """
-        if self.relationship > 6:
-            return self.RELATIONSHIP_STAGES[3]  # 夫妻
-        elif self.relationship > 4:
-            return self.RELATIONSHIP_STAGES[2]  # 情侶
-        elif self.relationship > 2:
-            return self.RELATIONSHIP_STAGES[1]  # 朋友
-        else:
-            return self.RELATIONSHIP_STAGES[0]  # 陌生
+        # 使用 self.relationship_stage 直接返回當前的關係階段
+        return self.relationship_stage
     def get_current_relationship_stage(self):
         """
         獲取當前的關係階段。
