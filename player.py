@@ -71,28 +71,24 @@ class Player:
         """
         print(f"\n與{girl.name}互動：")
         print("1. 聊天 (消耗5點咒力)")
-        if girl.get_relationship_stage() != "陌生":  # 如果是朋友或情侶
+        
+        if girl.get_relationship_stage() != "陌生":
             print("2. 約會 (消耗20點咒力)")
-            if girl.relationship > 2 and random.randint(1, 3) == 1:  # 情侶且有機會
-                print("3. 去旅館 (消耗20點咒力)")
-        # 檢查是否可以進行告白
-        if girl.get_current_relationship_stage() == "朋友" and girl.relationship == 4:
-            print("5. 告白 (消耗20點咒力)")
-         # 檢查是否可以進行求婚
-        if girl.get_current_relationship_stage() == "情侶" and girl.relationship == 6:
-            print("6. 求婚 (消耗200點咒力)")
-            
+
+        # 增加求婚選項
+        if girl.get_relationship_stage() == "情侶" and girl.relationship > 4:
+            print("3. 求婚 (消耗50點咒力)")
+
         choice = input("選擇你的行動（輸入數字）：")
-        if choice == '5' and girl.get_current_relationship_stage() == "朋友" and girl.relationship == 4:
-            self.attempt_confession(girl)
-        if choice == '6' and girl.get_current_relationship_stage() == "情侶" and girl.relationship == 6:
-            self.propose_marriage(girl)
+
         if choice == '1':
             self.chat_with_girl(girl)
         elif choice == '2' and girl.get_relationship_stage() != "陌生":
             self.date_with_girl(girl)
-        elif choice == '3' and girl.relationship > 2:
-            self.hotel_with_girl(girl)
+        elif choice == '3' and girl.get_relationship_stage() == "情侶" and girl.relationship > 4:
+            self.propose_to_girl(girl)
+
+    
 
     def chat_with_girl(self, girl):
         """
