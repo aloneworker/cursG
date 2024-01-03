@@ -11,21 +11,19 @@ def main():
     girl_names = load_names("girl_names.txt")
     possible_features = ["巨乳", "翹臀", "長腿", "正妹", "蛇腰"]
     girl = None
-    
     while True:
         print(f"\n當前咒力：{player.get_mana()}")
-        # 檢查是否有與玩家為夫妻的妹子，且其行為不是工作或逛街
-        for current_girl in player.book:
-            if current_girl.relationship_stage == "夫妻" and current_girl.action not in ["工作", "逛街"]:
-                print(f"\n{current_girl.name}現在正在{current_girl.action}")
-
- 
         if not girl:
             print("1. 招喚妹子術")
             if player.book:
                 print("2. 本子術")
             print("3. 結束遊戲")
             print("4. 打開後台 (僅限開發者使用)")
+
+            # 增加喚妻咒術選項
+            if any(girl.get_relationship_stage() == "夫妻" for girl in player.book):
+                print("5. 喚妻咒術")
+
         else:
             print("3. 與妹子閒聊")
             print("4. 與妹子認真聊天")
@@ -40,6 +38,8 @@ def main():
                 print("咒力不足！")
         elif choice == '2' and not girl and player.book:
             player.cast_book_spell()
+        elif choice == '5' and any(girl.get_relationship_stage() == "夫妻" for girl in player.book) and not girl:
+            player.cast_wife_spell()
         elif choice in ['3', '4'] and girl:
             mood = "閒聊" if choice == '3' else "認真"
             chat_result, leave = girl.chat(mood)
@@ -72,6 +72,7 @@ def main():
 
         # 更新畫面
         print("\n畫面更新...\n")
+
 
 if __name__ == "__main__":
     main()
