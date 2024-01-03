@@ -86,7 +86,7 @@ class Player:
         elif choice == '2' and girl.get_relationship_stage() != "陌生":
             self.date_with_girl(girl)
         elif choice == '3' and girl.get_relationship_stage() == "朋友" and girl.relationship >= 4:
-            self.confess_to_girl(girl)
+            self.attempt_confession(girl)
 
     
 
