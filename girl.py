@@ -117,8 +117,9 @@ class Girl:
             self.excitement += 1
             if self.excitement > 3:
                 self.relationship += 1
-                relationship_stage = self.update_relationship()
-                return f"妹子感到高興了！關係增加，現在是{relationship_stage}。妹子離開了。", True
+                relationship_message = self.update_relationship()  # 更新關係階段
+                relationship_stage = self.get_relationship_stage()  # 獲取當前的關係階段
+                return f"妹子感到高興了！關係增加，現在是{relationship_stage}階段。妹子離開了。", True
             return "妹子感到高興了！", False
         elif result == "厭煩":
             self.displeasure += 1
