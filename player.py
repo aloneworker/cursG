@@ -71,7 +71,7 @@ class Player:
         """
         print(f"\n與{girl.name}互動：")
         print("1. 聊天 (消耗5點咒力)")
-        if girl.relationship > 1:  # 如果是朋友或情侶
+        if girl.get_relationship_stage() != "陌生":  # 如果是朋友或情侶
             print("2. 約會 (消耗20點咒力)")
             if girl.relationship > 2 and random.randint(1, 3) == 1:  # 情侶且有機會
                 print("3. 去旅館 (消耗20點咒力)")
