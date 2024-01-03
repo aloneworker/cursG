@@ -89,7 +89,7 @@ class Player:
             self.propose_marriage(girl)
         if choice == '1':
             self.chat_with_girl(girl)
-        elif choice == '2':
+        elif choice == '2' and girl.get_relationship_stage() != "陌生":
             self.date_with_girl(girl)
         elif choice == '3' and girl.relationship > 2:
             self.hotel_with_girl(girl)
