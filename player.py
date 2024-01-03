@@ -75,9 +75,12 @@ class Player:
         if girl.get_relationship_stage() != "陌生":
             print("2. 約會 (消耗20點咒力)")
 
-        # 增加告白選項
         if girl.get_relationship_stage() == "朋友" and girl.relationship >= 4:
             print("3. 告白 (消耗30點咒力)")
+
+        # 新增求婚選項
+        if girl.get_relationship_stage() == "情侶" and girl.relationship >= 4:
+            print("4. 求婚 (消耗50點咒力)")
 
         choice = input("選擇你的行動（輸入數字）：")
 
@@ -86,8 +89,9 @@ class Player:
         elif choice == '2' and girl.get_relationship_stage() != "陌生":
             self.date_with_girl(girl)
         elif choice == '3' and girl.get_relationship_stage() == "朋友" and girl.relationship >= 4:
-            self.attempt_confession(girl)
-
+            self.confess_to_girl(girl)
+        elif choice == '4' and girl.get_relationship_stage() == "情侶" and girl.relationship >= 4:
+            self.propose_to_girl(girl)
     
 
     def chat_with_girl(self, girl):
