@@ -140,6 +140,9 @@ class Player:
             print(f"你和{girl.name}去了旅館，度過了美好的時光。")
         else:
             print("咒力不足！")
+
+
+    
     def open_backend(self):
         """
         打開後台功能，顯示本子中所有妹子的詳細信息，並將咒力增加到999。
@@ -176,26 +179,23 @@ class Player:
                
         else:
             print("咒力不足，無法告白！")
-    def propose_marriage(self, girl):
+    def propose_to_girl(self, girl):
         """
         向妹子求婚。
 
         參數:
             girl (Girl): 玩家將要求婚的妹子。
         """
-        if self.mana >= 200:
-            self.mana -= 200
-            # 求婚有成功的機會
-            if random.randint(1, 2) == 1:
-                # 求婚成功
-                girl.relationship_stage = "夫妻"
-                girl.relationship = 0  # 清除關係值
-                print(f"你向{girl.name}求婚，她欣然接受了！現在你們是夫妻了。")
- 
-            else:
-                print(f"你向{girl.name}求婚，但她覺得還不是時候。")
+        if self.mana >= 50:
+            self.mana -= 50
+            # 在這裡添加求婚成功的後續事件和影響
+            print(f"你向{girl.name}求婚，她欣然接受了！現在你們是夫妻了。")
+            girl.relationship_stage = "夫妻"
+            girl.relationship = 0  # 重置關係值
         else:
             print("咒力不足，無法求婚！")
+
+    
     def get_mana(self):
         """
         獲取玩家當前的咒力值。
