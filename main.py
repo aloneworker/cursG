@@ -15,9 +15,7 @@ def main():
     while True:
         print(f"\n當前咒力：{player.get_mana()}")
                 # 檢查是否有與玩家為夫妻的妹子，且其行為不是工作或逛街
-        for girl in player.book:
-            if girl.relationship_stage == "夫妻" and girl.action not in ["工作", "逛街"]:
-                print(f"\n{girl.name}現在正在{girl.action}")
+ 
         if not girl:
             print("1. 招喚妹子術")
             if player.book:
