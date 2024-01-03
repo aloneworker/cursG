@@ -165,7 +165,7 @@ class Player:
             print(f"興奮程度：{girl.excitement}")
             print("-" * 30)  # 分隔線
 
-    def attempt_confession(self, girl):
+    def confess_to_girl(self, girl):
         """
         嘗試向妹子告白。
 
