@@ -109,7 +109,7 @@ class Player:
             self.chat_with_girl(wife)
         elif choice == '2':
             # 執行S遊戲
-            s_game = SGame(self.base_path)
+            s_game = SGame()
             selected_file = s_game.play_s_game(wife.name)
             print("S遊戲結果：", selected_file)
         else:
@@ -198,7 +198,7 @@ class Player:
             # 在這裡添加去旅館的後續事件和影響
                     # 加入1/5的機率進行S操作
          
-            s_game = SGame(self.base_path)
+            s_game = SGame()
             selected_file = s_game.play_s_game(girl.name)
             print("發生的S遊戲結果：", selected_file)
         else:
