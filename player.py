@@ -60,6 +60,28 @@ class Player:
         else:
             print("咒力不足或本子中沒有妹子！")
             return False
+    def interact_with_wife(self, wife):
+        """
+        與妻子互動。
+
+        參數:
+            wife (Girl): 要互動的妻子對象。
+        """
+        print(f"\n與{wife.name}互動：")
+        print("1. 聊天")
+        print("2. S")
+
+        choice = input("選擇你的行動（輸入數字）：")
+
+        if choice == '1':
+            self.chat_with_girl(wife)
+        elif choice == '2':
+            # 執行S遊戲
+            s_game = SGame(self.base_path)
+            selected_file = s_game.play_s_game(wife.name)
+            print("S遊戲結果：", selected_file)
+        else:
+            print("無效的選擇！")
 
     
     def interact_with_girl(self, girl):
@@ -123,6 +145,7 @@ class Player:
         if self.mana >= 20:
             self.mana -= 20
             girl.relationship += 2  # 增加關係值
+            
             print(f"你和{girl.name}進行了愉快的約會，你們的關係更進一步了。")
             relationship_message = girl.update_relationship()
             if relationship_message:
@@ -141,7 +164,11 @@ class Player:
         if self.mana >= 20:
             self.mana -= 20
             # 在這裡添加去旅館的後續事件和影響
-            print(f"你和{girl.name}去了旅館，度過了美好的時光。")
+                    # 加入1/5的機率進行S操作
+         
+            s_game = SGame(self.base_path)
+            selected_file = s_game.play_s_game(girl.name)
+            print("發生的S遊戲結果：", selected_file)
         else:
             print("咒力不足！")
 
