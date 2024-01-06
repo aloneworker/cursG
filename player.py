@@ -1,4 +1,5 @@
 from girl import Girl
+from FolderScanner import *
 import random
 class Player:
     """
