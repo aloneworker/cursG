@@ -49,30 +49,37 @@ class SGame:
         """
         self.base_path = base_path
 
-    def play_s_game(self, person_name):
+
+    def play_s_game(self, girl):
         """
         執行S遊戲。
 
         參數:
-            person_name (str): 人名，用於搜尋對應的S資料夾。
-        
+            girl (Girl): 參與S遊戲的妹子對象。
+
         返回:
             str: 隨機選擇的檔案名稱。如果沒有檔案，返回None。
         """
-        # 隨機從S檔案夾中選取一個檔案
+        # 如果妹子的S動作輯中有檔案，則有4/5的機會使用這些檔案
+        if girl.s_actions and random.randint(1, 5) != 1:
+            return random.choice(girl.s_actions)
+
+        # 從S檔案夾中隨機選取一個檔案
         s_folder_scanner = FolderScanner("S", self.base_path)
         s_folder_scanner.scan_folder()
         s_file = s_folder_scanner.get_random_file()
 
         # 檢查是否存在與人名對應的S資料夾
-        person_s_folder_scanner = FolderScanner(f"{person_name}S", self.base_path)
+        person_s_folder_scanner = FolderScanner(f"{girl.name}S", self.base_path)
         person_s_folder_scanner.scan_folder()
         person_s_file = person_s_folder_scanner.get_random_file()
 
         # 從上述兩個檔案中隨機選擇一個
         available_files = [f for f in [s_file, person_s_file] if f]
         if available_files:
-            return random.choice(available_files)
+            selected_file = random.choice(available_files)
+            girl.s_actions.append(selected_file)  # 將選擇的檔案添加到S動作輯中
+            return selected_file
         else:
             print("沒有可用的檔案。")
             return None
