@@ -31,7 +31,10 @@ class Girl:
         self.relationship = 0
         self.action = random.choice(self.ACTIONS)
         self.male_friends = {}  # 將male_friends定義為字典
+        self.s_actions = []  # 新增用於儲存S動作的屬性
 
+
+    
     def update_action(self):
         """
         更新妹子的行動。根據當前行動（逛街或工作）決定是否觸發被搭訕事件。
