@@ -62,7 +62,7 @@ class Player:
             print("咒力不足或本子中沒有妹子！")
             return False
 
-   def cast_wife_spell(self):
+    def cast_wife_spell(self):
         """
         使用喚妻咒術查看並互動妻子。
 
@@ -91,6 +91,7 @@ class Player:
         else:
             print("咒力不足！")
             return False
+    
     def interact_with_wife(self, wife):
         """
         與妻子互動。
