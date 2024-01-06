@@ -60,6 +60,36 @@ class Player:
         else:
             print("咒力不足或本子中沒有妹子！")
             return False
+
+   def cast_wife_spell(self):
+        """
+        使用喚妻咒術查看並互動妻子。
+
+        返回:
+            bool: 咒術是否成功執行。
+        """
+        if self.mana >= 3:
+            self.mana -= 3
+            wives = [girl for girl in self.book if girl.get_relationship_stage() == "夫妻"]
+            if wives:
+                print("你的妻子：")
+                for index, wife in enumerate(wives):
+                    action = wife.action  # 妻子當前的行動
+                    print(f"{index + 1}. {wife.name} - 目前行動：{action}")
+
+                wife_index = int(input("選擇要互動的妻子編號：")) - 1
+                if 0 <= wife_index < len(wives):
+                    selected_wife = wives[wife_index]
+                    self.interact_with_wife(selected_wife)
+                else:
+                    print("無效的選擇！")
+                return True
+            else:
+                print("你沒有妻子！")
+                return False
+        else:
+            print("咒力不足！")
+            return False
     def interact_with_wife(self, wife):
         """
         與妻子互動。
