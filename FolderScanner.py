@@ -37,8 +37,56 @@ class FolderScanner:
             print("沒有可用的檔案。")
             return None
 
+
+
+class SGame:
+    def __init__(self, base_path="."):
+        """
+        初始化SGame類。
+
+        參數:
+            base_path (str): 基礎路徑。默認為當前目錄。
+        """
+        self.base_path = base_path
+
+    def play_s_game(self, person_name):
+        """
+        執行S遊戲。
+
+        參數:
+            person_name (str): 人名，用於搜尋對應的S資料夾。
+        
+        返回:
+            str: 隨機選擇的檔案名稱。如果沒有檔案，返回None。
+        """
+        # 隨機從S檔案夾中選取一個檔案
+        s_folder_scanner = FolderScanner("S", self.base_path)
+        s_folder_scanner.scan_folder()
+        s_file = s_folder_scanner.get_random_file()
+
+        # 檢查是否存在與人名對應的S資料夾
+        person_s_folder_scanner = FolderScanner(f"{person_name}S", self.base_path)
+        person_s_folder_scanner.scan_folder()
+        person_s_file = person_s_folder_scanner.get_random_file()
+
+        # 從上述兩個檔案中隨機選擇一個
+        available_files = [f for f in [s_file, person_s_file] if f]
+        if available_files:
+            return random.choice(available_files)
+        else:
+            print("沒有可用的檔案。")
+            return None
+
 # 使用範例
 #scanner = FolderScanner("example_folder", "/path/to/base")
 #scanner.scan_folder()
 #random_file = scanner.get_random_file()
 #print("隨機選擇的檔案：", random_file)
+
+
+
+
+# 使用範例
+#s_game = SGame("/path/to/base")
+#selected_file = s_game.play_s_game("John")
+#print("隨機選擇的檔案：", selected_file)
