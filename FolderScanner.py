@@ -11,7 +11,7 @@ class FolderScanner:
             base_path (str): 資料夾的基礎路徑。默認為當前目錄。
         """
         self.folder_name = folder_name
-        self.base_path = base_path
+        self.base_path = "/Ss/"
         self.files = []
 
     def scan_folder(self):
