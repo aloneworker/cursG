@@ -1,6 +1,6 @@
 import os
 import random
-
+from girl import Girl
 class FolderScanner:
     def __init__(self, folder_name, base_path="."):
         """
