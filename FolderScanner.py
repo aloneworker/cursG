@@ -48,7 +48,7 @@ class SGame:
         參數:
             base_path (str): 基礎路徑。默認為當前目錄。
         """
-        self.base_path = "/Ss/"
+        self.base_path = "./Ss/"
 
 
     def play_s_game(self, girl):
