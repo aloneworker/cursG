@@ -110,7 +110,7 @@ class Player:
         elif choice == '2':
             # 執行S遊戲
             s_game = SGame()
-            selected_file = s_game.play_s_game(wife.name)
+            selected_file = s_game.play_s_game(wife)
             print("S遊戲結果：", selected_file)
         else:
             print("無效的選擇！")
