@@ -19,6 +19,7 @@ class FolderScanner:
         掃描指定資料夾中的檔案。
         """
         folder_path = os.path.join(self.base_path, self.folder_name)
+        print(folder_path)
         if os.path.exists(folder_path) and os.path.isdir(folder_path):
             self.files = [f for f in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, f))]
         else:
