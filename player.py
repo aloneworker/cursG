@@ -208,21 +208,55 @@ class Player:
     
     def open_backend(self):
         """
-        打開後台功能，顯示本子中所有妹子的詳細信息，並將咒力增加到999。
+        打開後台功能，提供各種後台操作選項。
         """
-        self.mana = 999
-        print("後台已打開，咒力增加到999！")
-        print("本子中的妹子詳細信息：")
-        for girl in self.book:
-            print(f"名稱：{girl.name}")
-            print(f"與玩家的感情階段：{girl.get_relationship_stage()}")
-            male_friends_info = ", ".join([f"{name}: S值 {s_value}" for name, s_value in girl.male_friends.items()])
-            print(f"認識的男子：{male_friends_info if male_friends_info else '無'}")
-            print(f"行動：{girl.action}")
-            print(f"身體特徵：{', '.join(girl.features) if girl.features else '無特徵'}")
-            print(f"不滿程度：{girl.displeasure}")
-            print(f"興奮程度：{girl.excitement}")
-            print("-" * 30)  # 分隔線
+        print("後台已打開，請選擇操作：")
+        print("1. 增加一位妻子")
+        print("2. 增加一位情人")
+        print("3. 增加一位朋友")
+        print("4. 查看本子中的妹子詳細信息")
+        print("5. 咒力增加到999")
+
+        choice = input("請選擇操作（輸入數字）：")
+
+        if choice in ['1', '2', '3']:
+            girl_name = input("輸入妹子的名字：")
+            if choice == '1':
+                self.add_girl(girl_name, "夫妻")
+            elif choice == '2':
+                self.add_girl(girl_name, "情侶")
+            elif choice == '3':
+                self.add_girl(girl_name, "朋友")
+        elif choice == '4':
+            self.show_girls_info()
+        elif choice == '5':
+            self.mana = 999
+            print("咒力增加到999！")
+        else:
+            print("無效的選擇！")
+
+    def add_girl(self, name, relationship_stage):
+        """
+        增加一位妹子到玩家的本子中。
+
+        參數:
+            name (str): 妹子的名字。
+            relationship_stage (str): 與妹子的關係階段。
+        """
+        new_girl = Girl(name)
+        new_girl.relationship_stage = relationship_stage
+        self.book.append(new_girl)
+        print(f"{name}（{relationship_stage}）已被添加到您的本子中。")
+    def show_girls_info(self):
+        """
+        顯示本子中妹子的詳細信息。
+        """
+        if self.book:
+            print("本子中的妹子詳細信息：")
+            for girl in self.book:
+                print(f"名稱：{girl.name}, 關係階段：{girl.relationship_stage}")
+        else:
+            print("本子中沒有妹子！")
 
     def confess_to_girl(self, girl):
         """
