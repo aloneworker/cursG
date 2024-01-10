@@ -179,7 +179,8 @@ class Girl:
             mind = random.choice(agrees)
         else:
             if not response:  # 如果還沒有設置回應
-                response = random.choice(agrees)
+                mind = random.choice(dellys)
+                response = random.choice(DELY)
         print(self.name+mind)
         print("[{}]".format(response))
         return allowed
