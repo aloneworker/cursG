@@ -112,7 +112,7 @@ class Girl:
         self.excitement = 0
         self.relationship_stage = "陌生"
         self.relationship = 0
-        self.action = random.choice(self.ACTIONS)
+        self.current_action = random.choice(self.ACTIONS)
         self.male_friends = {}  # 將male_friends定義為字典
         self.s_actions = []  # 新增用於儲存S動作的屬性
         self.子宮 = []  # 新增子宮陣列屬性
@@ -120,28 +120,70 @@ class Girl:
     
     def update_action(self):
         """
-        更新妹子的行動。根據當前行動（逛街或工作）決定是否觸發被搭訕事件。
-        被搭訕時可能認識新的男子或被帶去酒吧。
+        更新妹子的行動。
         """
+        all_actions = self.ACTIONS.copy()  # 複製原有行動列表
+
+        # 如果朋友名單不為零，增加約會行為
         if self.male_friends:
-            all_actions = self.ACTIONS + self.MALE_ACTIONS
+            all_actions.append("跟男子約會")
+
+            # 檢查是否有關係值超過90的男子，若有，增加約炮行為
+            if any(value > 90 for value in self.male_friends.values()):
+                all_actions.append("約炮")
+                all_actions.append("約炮")
+
+        if self.current_action == "去酒吧":
+            if random.randint(1, 3) == 1:
+                self.current_action = "酒醉交配"
+            else:
+                self.current_action = random.choice(all_actions)
+        elif self.current_action == "酒醉交配":
+            if random.randint(1, 3) != 1:  # 有1/3的機會繼續酒醉交配
+                self.current_action = random.choice(all_actions)
+            else:
+                self.drunk_mating()  # 繼續酒醉交配      
+
+        elif self.current_action in ["逛街", "工作"]:
+            if random.randint(1, 4) == 1:
+                self.current_action = "被搭訕"
+            else:
+                 self.current_action = random.choice(all_actions)
+        elif self.current_action == "被搭訕":
+            if random.randint(1, 4) == 1:
+                self.current_action = "去酒吧"
+            else:
+                 self.current_action = random.choice(all_actions)
         else:
-            all_actions = self.ACTIONS
+             self.current_action = random.choice(all_actions)
+ 
 
-        self.action = random.choice(all_actions)
 
-        # 當妹子在逛街或工作時，可能觸發被搭訕事件
-        if self.action in ["逛街", "工作"] and random.randint(1, 2) == 1:
-            self.action = "被搭訕"
-            flirt_random = random.randint(1, 4)
-            if self.action == "被搭訕" and random.randint(1, 4) == 1:
-                male_name = f"男子{len(self.male_friends) + 1}"
-                self.male_friends[male_name] = random.randint(1, 10)  # 為新男子隨機生成S值
-                print(f"{self.name}在{self.action}時認識了一位新朋友：{male_name}！")
-     
-            elif flirt_random == 2:  # 1/4的機率被帶去酒吧
-                self.action = "酒吧"
-                print(f"{self.name}被帶去了酒吧。")
+    def drunk_mating(self):
+        """
+        執行酒醉交配的功能。
+        """
+        male_name = "男子" + str(len(self.male_friends) + 1)
+        if random.randint(1, 3) == 1:
+            self.子宮.append(male_name)
+
+        self.evaluate_mating(male_name)
+
+    def evaluate_mating(self, male_name):
+        """
+        評估酒醉交配後的結果。
+
+        參數:
+            male_name (str): 交配中的男子名稱。
+        """
+        if self.子宮.count(male_name) > 5:
+            self.male_friends[male_name] = 100
+        else:
+            self.male_friends[male_name] = 1
+
+
+
+    
     def decide_internal_finish(self, player_name):
         """
         決定是否允許玩家射在裡面。
