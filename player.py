@@ -111,12 +111,34 @@ class Player:
             self.chat_with_girl(wife)
         elif choice == '2':
             # 執行S遊戲
-            s_game = SGame()
-            selected_file = s_game.play_s_game(wife)
-            print("S遊戲結果：", selected_file)
+            self.play_s_game(wife)
         else:
             print("無效的選擇！")
+    def play_s_game(self,girl):
+        s_game = SGame()
+        selected_file = s_game.play_s_game(wife)
+        """
+        執行S遊戲。
 
+        參數:
+            girl (Girl): 參與S遊戲的妹子對象。
+        """
+        while True:
+            if self.精汁 <= 0:
+                print("無法進行S操作，精汁不足！")
+                break
+
+            print("S：", selected_file)
+
+            # 有(1/S技)的機會觸發「射了」
+            if random.randint(1, self.S技) == 1:
+                self.精汁 -= 5  # 精汁減少5點
+                print("射了！精汁減少，當前精汁值：", self.精汁)
+
+            # 檢查是否結束S操作
+            choice = input("插？(enter or 1:out): ")
+            if choice == '1':
+                break
     
     def interact_with_girl(self, girl):
         """
