@@ -125,7 +125,7 @@ class Girl:
         all_actions = self.ACTIONS.copy()  # 複製原有行動列表
 
         for male_name, relationship in self.male_friends.items():
-            if random.randint(1, 10) == 1:  # 1/10的機會約會
+            if random.randint(1, 3) == 1:  # 1/10的機會約會
                 self.current_action = "跟男子約會"
                 break
 
