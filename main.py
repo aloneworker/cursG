@@ -68,7 +68,7 @@ def main():
             print("遊戲結束。")
             break
 
-       elif choice == '':
+        elif choice =='' :
             # 更新妹子的行動
             for girl in player.book:
                 girl.update_action()
