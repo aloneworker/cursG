@@ -13,6 +13,8 @@ class Player:
     def __init__(self):
         self.mana = 100
         self.book = []
+        self.精汁 = random.randint(5, 25)  # 玩家精汁的初始值
+        self.S技 = random.randint(1, 3)    # 玩家S技的初始值 
 
     def cast_summon_girl(self):
         """
