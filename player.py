@@ -135,10 +135,10 @@ class Player:
             if random.randint(1, self.S技) == 1:
                 if girl.decide_internal_finish(self.name):
                     girl.子宮.append(self.name)
-                    print(random.choice(答應的話語))
+                 
                     print("射了！/n 射進子宮內！！！精汁減少，當前精汁值：", self.精汁)
                 else:
-                    print(random.choice(婉拒的話語))
+                  
                     print("射了！..精汁減少，當前精汁值：", self.精汁)
     
                 self.精汁 -= 5  # 精汁減少5點
