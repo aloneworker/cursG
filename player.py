@@ -130,10 +130,18 @@ class Player:
 
             print("S：", selected_file)
 
-            # 有(1/S技)的機會觸發「射了」
-            if random.randint(1, self.S技) == 1:
-                self.精汁 -= 5  # 精汁減少5點
-                print("射了！精汁減少，當前精汁值：", self.精汁)
+        # 有(1/S技)的機會觸發「射了」
+        if random.randint(1, self.S技) == 1:
+            if girl.decide_internal_finish(self.name):
+                girl.子宮.append(self.name)
+                print(random.choice(答應的話語))
+                print("射了！/n 射進子宮內！！！精汁減少，當前精汁值：", self.精汁)
+            else:
+                print(random.choice(婉拒的話語))
+                print("射了！..精汁減少，當前精汁值：", self.精汁)
+
+            self.精汁 -= 5  # 精汁減少5點
+            
 
             # 檢查是否結束S操作
             choice = input("插？(enter or 1:out): ")
