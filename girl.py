@@ -124,9 +124,27 @@ class Girl:
         """
         all_actions = self.ACTIONS.copy()  # 複製原有行動列表
 
-        # 如果朋友名單不為零，增加約會行為
-        if self.male_friends:
-            all_actions.append("跟男子約會")
+        for male_name, relationship in self.male_friends.items():
+            if random.randint(1, 10) == 1:  # 1/10的機會約會
+                self.current_action = "跟男子約會"
+                break
+
+        # 根據當前行動更新下一個行動
+        if self.current_action == "跟男子約會":
+            if random.randint(1, 10) == 1:
+                self.current_action = "被下藥S"
+            elif random.randint(1, 5) == 1:
+                self.current_action = "去酒吧"
+            else:
+                self.current_action = random.choice(all_actions)
+        elif self.current_action == "被下藥S":
+            self.子宮.append(male_name)  # 將男子名字加入子宮
+            if random.randint(1, 3) != 1:  # 2/3機會繼續"被下藥S"
+                self.evaluate_mating(male_name)  # 評估交配結果
+            else:
+                self.current_action = random.choice(all_actions)
+        else:
+            self.current_action = random.choice(all_actions)
 
             # 檢查是否有關係值超過90的男子，若有，增加約炮行為
             if any(value > 90 for value in self.male_friends.values()):
@@ -181,7 +199,7 @@ class Girl:
             male_name (str): 交配中的男子名稱。
         """
         if self.子宮.count(male_name) > 5:
-            self.male_friends[male_name] = 100
+            self.male_friends[male_name] = 999
         else:
             self.male_friends[male_name] = 1
 
