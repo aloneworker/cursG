@@ -75,6 +75,7 @@ def main():
                 print(f"{girl.name} 當前行動: {girl.current_action}")
                 friends_list = ", ".join([f"{name}: {value}" for name, value in girl.male_friends.items()])
                 print(f"朋友名單: {friends_list if friends_list else '無'}")
+                print(f"子宮內 {girl.子宮}")
         else:
             print("無效的輸入！")
 
