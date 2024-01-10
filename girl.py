@@ -124,13 +124,25 @@ class Girl:
         """
         all_actions = self.ACTIONS.copy()  # 複製原有行動列表
 
+       
+
+            # 檢查是否有關係值超過90的男子，若有，增加約炮行為
+        if any(value > 90 for value in self.male_friends.values()):
+                all_actions.append("約炮")
+                all_actions.append("約炮")
+
+
+       # 檢查是否有男子發起約會
+        date_initiated = False
         for male_name, relationship in self.male_friends.items():
-            if random.randint(1, 3) == 1:  # 1/10的機會約會
-                self.current_action = "跟男子約會"
+            if random.randint(1, 10) == 1:  # 1/10的機會男子發起約會
+                date_initiated = True
                 break
 
-        # 根據當前行動更新下一個行動
-        if self.current_action == "跟男子約會":
+        if self.current_action in ["逛街", "工作", "吃飯"] and date_initiated:
+            self.current_action = "跟男子約會"
+        elif self.current_action == "跟男子約會":
+            # 如果上一個動作是約會
             if random.randint(1, 10) == 1:
                 self.current_action = "被下藥S"
             elif random.randint(1, 5) == 1:
@@ -143,21 +155,13 @@ class Girl:
                 self.evaluate_mating(male_name)  # 評估交配結果
             else:
                 self.current_action = random.choice(all_actions)
-        else:
-            self.current_action = random.choice(all_actions)
-
-            # 檢查是否有關係值超過90的男子，若有，增加約炮行為
-            if any(value > 90 for value in self.male_friends.values()):
-                all_actions.append("約炮")
-                all_actions.append("約炮")
-
-        if self.current_action == "去酒吧":
+        elif self.current_action == "去酒吧":
             if random.randint(1, 2) == 1:
                 self.current_action = "酒醉交配"
             else:
                 self.current_action = random.choice(all_actions)
         elif self.current_action == "酒醉交配":
-            if random.randint(1, 2) != 1:  # 有1/3的機會繼續酒醉交配
+            if random.randint(1, 3) == 1:  # 有2/3的機會繼續酒醉交配
                 self.current_action = random.choice(all_actions)
             else:
                 self.drunk_mating()  # 繼續酒醉交配      
