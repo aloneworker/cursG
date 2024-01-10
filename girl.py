@@ -134,12 +134,12 @@ class Girl:
                 all_actions.append("約炮")
 
         if self.current_action == "去酒吧":
-            if random.randint(1, 3) == 1:
+            if random.randint(1, 2) == 1:
                 self.current_action = "酒醉交配"
             else:
                 self.current_action = random.choice(all_actions)
         elif self.current_action == "酒醉交配":
-            if random.randint(1, 3) != 1:  # 有1/3的機會繼續酒醉交配
+            if random.randint(1, 2) != 1:  # 有1/3的機會繼續酒醉交配
                 self.current_action = random.choice(all_actions)
             else:
                 self.drunk_mating()  # 繼續酒醉交配      
@@ -151,6 +151,9 @@ class Girl:
                  self.current_action = random.choice(all_actions)
         elif self.current_action == "被搭訕":
             if random.randint(1, 4) == 1:
+                male_name = "男子" + str(len(self.male_friends) + 1)
+                self.male_friends[male_name] = 1
+            elif random.randint(1, 4) == 1:
                 self.current_action = "去酒吧"
             else:
                  self.current_action = random.choice(all_actions)
