@@ -117,7 +117,7 @@ class Girl:
         self.s_actions = []  # 新增用於儲存S動作的屬性
         self.子宮 = []  # 新增子宮陣列屬性
         self.meet_man = ''
-
+        self.fwb = {}  # 新增炮友字典
     
     def update_action(self):
         """
@@ -125,13 +125,11 @@ class Girl:
         """
         all_actions = self.ACTIONS.copy()  # 複製原有行動列表
 
-       
+        new_fwb = {name: value for name, value in self.male_friends.items() if value > 99}
+        for name in new_fwb:
+            self.fwb[name] = self.male_friends.pop(name)  # 將符合條件的男子移至炮友名單
 
-            # 檢查是否有關係值超過90的男子，若有，增加約炮行為
-        if any(value > 90 for value in self.male_friends.values()):
-                print('加入約炮')
-                all_actions.append("約炮")
-                all_actions.append("約炮")
+ 
 
 
        # 檢查是否有男子發起約會
