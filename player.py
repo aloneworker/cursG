@@ -133,9 +133,10 @@ class Player:
 
             # 有(1/S技)的機會觸發「射了」
             if random.randint(1, self.S技) == 1:
-                choice = input("阿 你快要要射了！ 你要問對方可以射進去嗎？ (1/n) ")
+                choice = input("阿 你快要要射了！ 你要問{}可以射進去嗎？ (1/n) ".format(girl.name))
                 if choice == "1" :
                     if girl.decide_internal_finish(self.name):
+                    
                         girl.子宮.append(self.name)
                      
                         print("射了！/n 射進子宮內！！！精汁減少，當前精汁值：", self.精汁)
