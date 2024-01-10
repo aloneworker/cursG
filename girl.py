@@ -152,7 +152,8 @@ class Girl:
         elif self.current_action == "被搭訕":
             if random.randint(1, 4) == 1:
                 male_name = "男子" + str(len(self.male_friends) + 1)
-                self.male_friends[male_name] = 1
+                if len(self.male_friends) < 20 :
+                    self.male_friends[male_name] = 1
             elif random.randint(1, 4) == 1:
                 self.current_action = "去酒吧"
             else:
