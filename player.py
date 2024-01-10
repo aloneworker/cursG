@@ -201,7 +201,19 @@ class Player:
         if self.mana >= 20:
             self.mana -= 20
             girl.relationship += 2  # 增加關係值
-            
+            # 有1/10的機會觸發去旅館
+            if random.randint(1, 10) == 1:
+                print(f"{girl.name}問你是否要去旅館。")
+                choice = input("是否花費50咒力去旅館？(1/n): ")
+                if choice.lower() == '1':
+                    if self.mana >= 50:
+                        self.mana -= 50
+                        print("你選擇了去旅館。")
+                        self.play_s_game(girl)
+                    else:
+                        print("咒力不足，無法去旅館！")
+                else:
+                    print("你選擇了不去旅館。")
             print(f"你和{girl.name}進行了愉快的約會，你們的關係更進一步了。")
             relationship_message = girl.update_relationship()
             if relationship_message:
