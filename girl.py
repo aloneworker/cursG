@@ -32,7 +32,7 @@ class Girl:
         self.action = random.choice(self.ACTIONS)
         self.male_friends = {}  # 將male_friends定義為字典
         self.s_actions = []  # 新增用於儲存S動作的屬性
-
+        self.子宮 = []  # 新增子宮陣列屬性
 
     
     def update_action(self):
@@ -59,6 +59,31 @@ class Girl:
             elif flirt_random == 2:  # 1/4的機率被帶去酒吧
                 self.action = "酒吧"
                 print(f"{self.name}被帶去了酒吧。")
+    def decide_internal_finish(self, player_name):
+        """
+        決定是否允許玩家射在裡面。
+
+        參數:
+            player_name (str): 玩家的名字。
+
+        返回:
+            bool: 是否允許射在裡面。
+        """
+        if len(self.子宮) >= 5:
+            return False  # 子宮內人數超過5人，拒絕S
+
+        if self.relationship_stage == "朋友":
+            return random.randint(1, 10) == 1  # 1/10機會答應
+        elif self.relationship_stage == "情侶":
+            if any(name != player_name for name in self.子宮):
+                return random.randint(1, 5) != 1  # 4/5機會拒絕
+            else:
+                return random.randint(1, 3) != 1  # 2/3機會拒絕
+        elif self.relationship_stage == "夫妻":
+            if any(name != player_name for name in self.子宮):
+                return random.randint(1, 5) != 1  # 3/5機會拒絕
+            else:
+                return random.randint(1, 5) == 1  # 1/5機會拒絕
 
     def update_relationship(self):
         """
