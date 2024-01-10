@@ -155,9 +155,13 @@ class Girl:
 
         response = ""
         allowed = False
-
+        agrees = ["有些恍神","朦朧的看著你","點頭","親了你一下","抱著你"]
+        dellys = ["低著頭","搖搖頭","親了你一下","害羞的看著其他地方","雙手撐著你的胸口稍微後退了一下"]
+ 
+        mind = ""
         if len(self.子宮) >= 5:
             response = random.choice(Girl.DELY)
+            mind = random.choice(dellys)
             allowed = False
         elif self.relationship_stage == "情侶":
             if any(name != player_name for name in self.子宮):
@@ -172,11 +176,12 @@ class Girl:
 
         if allowed:
             response = random.choice(Girl.AGAR)
+            mind = random.choice(dellys)
         else:
             if not response:  # 如果還沒有設置回應
-                response = random.choice(Girl.DELY)
-
-        print(response)
+                response = random.choice(agrees)
+        print(self.name+mind)
+        print("[{}]".format(response))
         return allowed
 
     def update_relationship(self):
