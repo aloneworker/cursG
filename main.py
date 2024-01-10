@@ -67,6 +67,14 @@ def main():
         elif choice == '3' and not girl:
             print("遊戲結束。")
             break
+
+       elif choice == '':
+            # 更新妹子的行動
+            for girl in player.book:
+                girl.update_action()
+                print(f"{girl.name} 當前行動: {girl.current_action}")
+                friends_list = ", ".join([f"{name}: {value}" for name, value in girl.male_friends.items()])
+                print(f"朋友名單: {friends_list if friends_list else '無'}")
         else:
             print("無效的輸入！")
 
