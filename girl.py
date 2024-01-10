@@ -116,6 +116,7 @@ class Girl:
         self.male_friends = {}  # 將male_friends定義為字典
         self.s_actions = []  # 新增用於儲存S動作的屬性
         self.子宮 = []  # 新增子宮陣列屬性
+        self.meet_man = ''
 
     
     def update_action(self):
@@ -137,6 +138,7 @@ class Girl:
         for male_name, relationship in self.male_friends.items():
             if random.randint(1, 10) == 1:  # 1/10的機會男子發起約會
                 date_initiated = True
+                self.meet_man = male_name
                 break
 
         if self.current_action in ["逛街", "工作", "吃飯"] and date_initiated:
@@ -150,9 +152,9 @@ class Girl:
             else:
                 self.current_action = random.choice(all_actions)
         elif self.current_action == "被下藥S":
-            self.子宮.append(male_name)  # 將男子名字加入子宮
+            self.子宮.append(self.meet_man)  # 將男子名字加入子宮
             if random.randint(1, 3) != 1:  # 2/3機會繼續"被下藥S"
-                self.evaluate_mating(male_name)  # 評估交配結果
+                self.evaluate_mating(self.meet_man)  # 評估交配結果
             else:
                 self.current_action = random.choice(all_actions)
         elif self.current_action == "去酒吧":
@@ -174,6 +176,7 @@ class Girl:
         elif self.current_action == "被搭訕":
             if random.randint(1, 4) == 1:
                 male_name = "男子" + str(len(self.male_friends) + 1)
+                self.meet_man = male_name
                 if len(self.male_friends) < 20 :
                     self.male_friends[male_name] = 1
             elif random.randint(1, 4) == 1:
@@ -189,11 +192,11 @@ class Girl:
         """
         執行酒醉交配的功能。
         """
-        male_name = "男子" + str(len(self.male_friends) + 1)
+         
         if random.randint(1, 3) == 1:
-            self.子宮.append(male_name)
+            self.子宮.append(self.meet_man)
 
-        self.evaluate_mating(male_name)
+        self.evaluate_mating(self.meet_man)
 
     def evaluate_mating(self, male_name):
         """
