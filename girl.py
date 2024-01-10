@@ -19,7 +19,7 @@ class Girl:
     RELATIONSHIP_STAGES = ["陌生", "朋友", "情侶", "夫妻"]
     ACTIONS = ["逛街", "工作", "吃飯", "洗澡", "睡覺", "被搭訕"]
     MALE_ACTIONS = ["跟男約會", "跟男聊天"]
-    婉拒的話語 = [
+    DELY = [
         "我...我不太確定這是個好主意...",
         "或許我們可以嘗試些別的？",
         "我覺得我還不太準備好這個...",
@@ -61,7 +61,7 @@ class Girl:
         "我...我覺得我們可以...也許不行...",
         "我...我覺得我們應該先...先停下..."
     ]
-    同意的話語 = [
+    AGAR = [
     "嗯...好吧，就這樣吧...",
     "如果你喜歡的話，可以的。",
     "嗯，我想試試看。",
@@ -157,7 +157,7 @@ class Girl:
         allowed = False
 
         if len(self.子宮) >= 5:
-            response = random.choice(Girl.婉拒的話語)
+            response = random.choice(Girl.DELY)
             allowed = False
         elif self.relationship_stage == "情侶":
             if any(name != player_name for name in self.子宮):
@@ -171,10 +171,10 @@ class Girl:
                 allowed = random.randint(1, 5) == 1
 
         if allowed:
-            response = random.choice(Girl.同意的話語)
+            response = random.choice(Girl.AGAR)
         else:
             if not response:  # 如果還沒有設置回應
-                response = random.choice(Girl.婉拒的話語)
+                response = random.choice(Girl.DELY)
 
         print(response)
         return allowed
