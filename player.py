@@ -11,6 +11,7 @@ class Player:
     """
 
     def __init__(self):
+        self.name = "你"
         self.mana = 100
         self.book = []
         self.精汁 = random.randint(5, 25)  # 玩家精汁的初始值
