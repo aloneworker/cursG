@@ -116,7 +116,7 @@ class Player:
             print("無效的選擇！")
     def play_s_game(self,girl):
         s_game = SGame()
-        selected_file = s_game.play_s_game(wife)
+        selected_file = s_game.play_s_game(girl)
         """
         執行S遊戲。
 
