@@ -152,21 +152,32 @@ class Girl:
         返回:
             bool: 是否允許射在裡面。
         """
-        if len(self.子宮) >= 5:
-            return False  # 子宮內人數超過5人，拒絕S
 
-        if self.relationship_stage == "朋友":
-            return random.randint(1, 10) == 1  # 1/10機會答應
+        response = ""
+        allowed = False
+
+        if len(self.子宮) >= 5:
+            response = random.choice(Girl.婉拒的話語)
+            allowed = False
         elif self.relationship_stage == "情侶":
             if any(name != player_name for name in self.子宮):
-                return random.randint(1, 5) != 1  # 4/5機會拒絕
+                allowed = random.randint(1, 5) != 1
             else:
-                return random.randint(1, 3) != 1  # 2/3機會拒絕
+                allowed = random.randint(1, 3) != 1
         elif self.relationship_stage == "夫妻":
             if any(name != player_name for name in self.子宮):
-                return random.randint(1, 5) != 1  # 3/5機會拒絕
+                allowed = random.randint(1, 5) != 1
             else:
-                return random.randint(1, 5) == 1  # 1/5機會拒絕
+                allowed = random.randint(1, 5) == 1
+
+        if allowed:
+            response = random.choice(Girl.同意的話語)
+        else:
+            if not response:  # 如果還沒有設置回應
+                response = random.choice(Girl.婉拒的話語)
+
+        print(response)
+        return allowed
 
     def update_relationship(self):
         """
