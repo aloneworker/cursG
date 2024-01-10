@@ -176,7 +176,7 @@ class Girl:
 
         if allowed:
             response = random.choice(Girl.AGAR)
-            mind = random.choice(dellys)
+            mind = random.choice(agrees)
         else:
             if not response:  # 如果還沒有設置回應
                 response = random.choice(agrees)
