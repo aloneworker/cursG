@@ -129,20 +129,23 @@ class Girl:
 
             # 檢查是否有關係值超過90的男子，若有，增加約炮行為
         if any(value > 90 for value in self.male_friends.values()):
+                print('加入約炮')
                 all_actions.append("約炮")
                 all_actions.append("約炮")
 
 
        # 檢查是否有男子發起約會
         date_initiated = False
+        man = ''
         for male_name, relationship in self.male_friends.items():
             if random.randint(1, 10) == 1:  # 1/10的機會男子發起約會
                 date_initiated = True
-                self.meet_man = male_name
+                man = male_name
                 break
 
         if self.current_action in ["逛街", "工作", "吃飯"] and date_initiated:
             self.current_action = "跟男子約會"
+            self.meet_man = man
         elif self.current_action == "跟男子約會":
             # 如果上一個動作是約會
             if random.randint(1, 10) == 1:
