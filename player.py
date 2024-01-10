@@ -202,7 +202,7 @@ class Player:
             self.mana -= 20
             girl.relationship += 2  # 增加關係值
             # 有1/10的機會觸發去旅館
-            if random.randint(1, 10) == 1:
+            if random.randint(1, 2) == 1:
                 print(f"{girl.name}問你是否要去旅館。")
                 choice = input("是否花費50咒力去旅館？(1/n): ")
                 if choice.lower() == '1':
