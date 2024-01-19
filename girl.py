@@ -174,7 +174,7 @@ class Girl:
                 self.current_action = random.choice(all_actions)
             else:
                 self.ntr_mating()  # 繼續交配      
-        elif self.current_action == "被下藥S"::
+        elif self.current_action == "被下藥S":
             self.unact = self.current_action
             self.current_action = "被配種中"
             if random.randint(1, 8) != 1:  # 7/8機會繼續"被下藥S"
