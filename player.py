@@ -118,13 +118,15 @@ class Player:
                 print(f"男子把你趕走，並且繼續抓著赤裸的老婆交配著...\n並挑釁的內射在恍神的老婆體內....：")
             else :
                 print(f"你把被灌藥的老婆帶回家了")
+                wife.current_action = "睡覺"
         elif action == "去酒吧":
             if random.randint(1,3) == 1 :
                 print(f"你發現老婆在酒吧內...沒有看到老婆....：")
             else :
                 print(f"你把老婆帶回家了")
+                wife.current_action = "睡覺"
         elif action == "跟炮友做愛":
-             print(f"老婆跟你說：等一下，我...還沒...\n 老婆繼續跟男子交配著...(男子似乎不斷的射...)")
+             print(f"老婆跟你說：等一下，我...還沒...\n 老婆繼續跟男子交配著...(男子似乎不斷的射...\n 老婆{wife.name}跟你說：老公回去等我好嗎...我..(男子繼續幹著老婆{wife.name}))")
              wife.shut_in()
         elif action == "被下藥S":
             print(f"{wife.name}看起來有點恍神因該是被下藥...，全身一絲不掛的趴著，正在被男子交配著...\n男子看到你，挑釁的內射在恍神的老婆體內....：")
@@ -133,6 +135,7 @@ class Player:
                 print(f"男子把你趕走，並且繼續抓著赤裸的老婆交配著...\n並挑釁的內射在恍神的老婆體內....：")
             else :
                 print(f"你把被灌藥的老婆帶回家了")
+                wife.current_action = "睡覺"
         elif action == "酒醉交配":
             print(f"{wife.name}看起來有點恍神因該是喝醉了...，全身一絲不掛的趴著，正在被男子交配著...\n男子看到你，挑釁的內射在恍神的老婆體內....：")
             wife.shut_in()
@@ -140,6 +143,7 @@ class Player:
                 print(f"男子把你趕走，並且繼續抓著赤裸的老婆交配著...\n並挑釁的內射在恍神的老婆體內....：")
             else :
                 print(f"你把被灌醉的老婆帶回家了")
+                wife.current_action = "睡覺"
         else :
             pass
               
