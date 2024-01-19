@@ -125,7 +125,7 @@ class Player:
                 print(f"你把老婆帶回家了")
         elif action == "跟炮友做愛":
              print(f"老婆跟你說：等一下，我...還沒...\n 老婆繼續跟男子交配著...(男子似乎不斷的射...)")
-            wife.shut_in()
+             wife.shut_in()
         elif action == "被下藥S":
             print(f"{wife.name}看起來有點恍神因該是被下藥...，全身一絲不掛的趴著，正在被男子交配著...\n男子看到你，挑釁的內射在恍神的老婆體內....：")
             wife.shut_in()
