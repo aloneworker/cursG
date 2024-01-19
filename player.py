@@ -78,7 +78,7 @@ class Player:
             if wives:
                 print("你的妻子：")
                 for index, wife in enumerate(wives):
-                    action = wife.action  # 妻子當前的行動
+                    action = wife.current_action  # 妻子當前的行動
                     print(f"{index + 1}. {wife.name} - 目前行動：{action}")
 
                 wife_index = int(input("選擇要互動的妻子編號：")) - 1
