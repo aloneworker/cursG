@@ -94,7 +94,7 @@ class Player:
                         what = int(input("要花費10點咒力去嗎？ 1/n"))
                         if what == 1 and self.mana >= 10 :
                             self.mana -= 10 
-                            self.interact_wif_wife(selected_wife)
+                            self.see_with_wife(selected_wife)
                     else :
                         self.interact_with_wife(selected_wife)
                 else:
