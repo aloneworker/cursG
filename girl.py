@@ -174,7 +174,7 @@ class Girl:
                 self.ntr_mating()  # 繼續交配      
         elif self.current_action == "被下藥S":
             self.子宮.append(self.meet_man)  # 將男子名字加入子宮
-            if random.randint(1, 6) != 1:  # 5/6機會繼續"被下藥S"
+            if random.randint(1, 8) != 1:  # 7/8機會繼續"被下藥S"
                 self.evaluate_mating(self.meet_man)  # 評估交配結果
             else:
                 self.current_action = random.choice(all_actions)
