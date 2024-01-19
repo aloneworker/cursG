@@ -154,7 +154,7 @@ class Girl:
                 self.current_action = random.choice(all_actions)
         elif self.current_action == "被下藥S":
             self.子宮.append(self.meet_man)  # 將男子名字加入子宮
-            if random.randint(1, 3) != 1:  # 2/3機會繼續"被下藥S"
+            if random.randint(1, 6) != 1:  # 5/6機會繼續"被下藥S"
                 self.evaluate_mating(self.meet_man)  # 評估交配結果
             else:
                 self.current_action = random.choice(all_actions)
@@ -164,7 +164,7 @@ class Girl:
             else:
                 self.current_action = random.choice(all_actions)
         elif self.current_action == "酒醉交配":
-            if random.randint(1, 3) == 1:  # 有2/3的機會繼續酒醉交配
+            if random.randint(1, 4) == 1:  # 有3/4的機會繼續酒醉交配
                 self.current_action = random.choice(all_actions)
             else:
                 self.drunk_mating()  # 繼續酒醉交配      
