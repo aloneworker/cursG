@@ -237,15 +237,14 @@ class Girl:
             allowed = False
         elif self.relationship_stage == "情侶":
             if any(name != player_name for name in self.子宮):
-                allowed = random.randint(1, 5) != 1
-            else:
-                allowed = random.randint(1, 3) != 1
-        elif self.relationship_stage == "夫妻":
-            if any(name != player_name for name in self.子宮):
-                allowed = random.randint(1, 5) != 1
-                print('alllowed')
+                allowed = random.randint(1, 8) == 1
             else:
                 allowed = random.randint(1, 5) == 1
+        elif self.relationship_stage == "夫妻":
+            if any(name != player_name for name in self.子宮):
+                allowed = random.randint(1, 5) == 1
+            else:
+                allowed = random.randint(1, 5) != 1
 
         if allowed:
             response = random.choice(Girl.AGAR)
