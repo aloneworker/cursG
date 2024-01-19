@@ -118,6 +118,7 @@ class Girl:
         self.子宮 = []  # 新增子宮陣列屬性
         self.meet_man = ''
         self.fwb = {}  # 新增炮友字典
+        self.unact = ""
     
     def update_action(self):
         """
@@ -163,6 +164,7 @@ class Girl:
             # 如果上一個動作是約會
             if random.randint(1, 13) == 1:
                 self.current_action = "被下藥S"
+                
             elif random.randint(1, 5) == 1:
                 self.current_action = "去酒吧"
             else:
@@ -206,6 +208,8 @@ class Girl:
                  self.current_action = random.choice(all_actions)
         elif self.current_action == "被配種中":
             self.shut_in()
+            self.current_action = self.unact
+            
         else:
              self.current_action = random.choice(all_actions)
  
@@ -217,6 +221,7 @@ class Girl:
         """
          
         if random.randint(1, 3) == 1:
+            self.unact = self.current_action
             self.current_action = "被配種中"
 
         
