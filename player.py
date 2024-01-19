@@ -75,16 +75,28 @@ class Player:
         if self.mana >= 3:
             self.mana -= 3
             wives = [girl for girl in self.book if girl.get_relationship_stage() == "夫妻"]
+            
             if wives:
                 print("你的妻子：")
+             
                 for index, wife in enumerate(wives):
                     action = wife.current_action  # 妻子當前的行動
-                    print(f"{index + 1}. {wife.name} - 目前行動：{action}")
+                    if action in ['跟男子約會' ,'被下藥' , '去酒吧' ,'跟炮友做愛', '被下藥S', '酒醉交配' ]:
+                        print(f"{index + 1}. {wife.name} - 目前行動：正在忙...")
+                         
+                    else :
+                        print(f"{index + 1}. {wife.name} - 目前行動：{action}")
 
                 wife_index = int(input("選擇要互動的妻子編號：")) - 1
                 if 0 <= wife_index < len(wives):
                     selected_wife = wives[wife_index]
-                    self.interact_with_wife(selected_wife)
+                    if selected_wife.current_action in ['跟男子約會' ,'被下藥' , '去酒吧' ,'跟炮友做愛', '被下藥S', '酒醉交配' ]:
+                        what = int(input("要花費10點咒力去嗎？ 1/n"))
+                        if what == 1 and self.mana >= 10 :
+                            self.mana -= 10 
+                            self.interact_wif_wife(selected_wife)
+                    else :
+                        self.interact_with_wife(selected_wife)
                 else:
                     print("無效的選擇！")
                 return True
@@ -94,7 +106,43 @@ class Player:
         else:
             print("咒力不足！")
             return False
-    
+    def see_with_wife(self,wife):
+        action = wife.current_action 
+        if action == "跟男子約會":
+            print(f"{wife.name}正在跟一個男子約會，她看到你生氣的跟男子離開了....：")
+            wife.current_action = "去酒吧"
+        elif action == "被下藥":
+            print(f"{wife.name}看起來有點恍神因該是被下藥...，全身一絲不掛的趴著，正在被男子交配著...\n男子看到你，挑釁的內射在恍神的老婆體內....：")
+            wife.shut_in()
+            if random.randint(1,3) == 1 :
+                print(f"男子把你趕走，並且繼續抓著赤裸的老婆交配著...\n並挑釁的內射在恍神的老婆體內....：")
+            else :
+                print(f"你把被灌藥的老婆帶回家了")
+        elif action == "去酒吧":
+            if random.randint(1,3) == 1 :
+                print(f"你發現老婆在酒吧內...沒有看到老婆....：")
+            else :
+                print(f"你把老婆帶回家了")
+        elif action == "跟炮友做愛":
+             print(f"老婆跟你說：等一下，我...還沒...\n 老婆繼續跟男子交配著...(男子似乎不斷的射...)")
+            wife.shut_in()
+        elif action == "被下藥S":
+            print(f"{wife.name}看起來有點恍神因該是被下藥...，全身一絲不掛的趴著，正在被男子交配著...\n男子看到你，挑釁的內射在恍神的老婆體內....：")
+            wife.shut_in()
+            if random.randint(1,3) == 1 :
+                print(f"男子把你趕走，並且繼續抓著赤裸的老婆交配著...\n並挑釁的內射在恍神的老婆體內....：")
+            else :
+                print(f"你把被灌藥的老婆帶回家了")
+        elif action == "酒醉交配":
+            print(f"{wife.name}看起來有點恍神因該是喝醉了...，全身一絲不掛的趴著，正在被男子交配著...\n男子看到你，挑釁的內射在恍神的老婆體內....：")
+            wife.shut_in()
+            if random.randint(1,3) == 1 :
+                print(f"男子把你趕走，並且繼續抓著赤裸的老婆交配著...\n並挑釁的內射在恍神的老婆體內....：")
+            else :
+                print(f"你把被灌醉的老婆帶回家了")
+        else :
+            pass
+              
     def interact_with_wife(self, wife):
         """
         與妻子互動。
@@ -103,14 +151,13 @@ class Player:
             wife (Girl): 要互動的妻子對象。
         """
         print(f"\n與{wife.name}互動：")
-        print("1. 聊天")
-        print("2. S")
+ 
+        print("1. S")
 
         choice = input("選擇你的行動（輸入數字）：")
 
         if choice == '1':
-            self.chat_with_girl(wife)
-        elif choice == '2':
+ 
             # 執行S遊戲
             self.play_s_game(wife)
         else:
