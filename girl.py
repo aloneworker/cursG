@@ -243,6 +243,7 @@ class Girl:
         elif self.relationship_stage == "夫妻":
             if any(name != player_name for name in self.子宮):
                 allowed = random.randint(1, 5) != 1
+                print('alllowed')
             else:
                 allowed = random.randint(1, 5) == 1
 
