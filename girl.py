@@ -204,21 +204,31 @@ class Girl:
                 self.current_action = "去酒吧"
             else:
                  self.current_action = random.choice(all_actions)
+        elif self.current_action == "被配種中":
+            self.shut_in()
         else:
              self.current_action = random.choice(all_actions)
  
 
 
-    def ntr_mating(self):
+    def ntr_mating(self,talk=False):
         """
         她男交配的功能。
         """
          
         if random.randint(1, 3) == 1:
-            self.子宮.append(self.meet_man)
+            self.current_action = "被配種中"
 
+        
+
+
+    def shut_in(self,talk=False):
+        """
+        被射入
+        """
+        self.子宮.append(self.meet_man)
         self.evaluate_mating(self.meet_man)
-
+    
     def evaluate_mating(self, male_name):
         """
         評估酒醉交配後的結果。
