@@ -130,6 +130,13 @@ class Girl:
             self.fwb[name] = self.male_friends.pop(name)  # 將符合條件的男子移至炮友名單
 
  
+        # 檢查是否有來自fwb的約炮行動
+        if self.current_action in ["逛街", "工作", "吃飯", "洗澡", "睡覺"]:
+            # 遍歷所有fwb
+            for fwb_name in self.fwb.keys():
+                if random.randint(1, 3) == 1:  # 1/3的機會fwb約炮
+                    self.current_action = "被fwb約炮"
+                    return  # 當有一個fwb約炮時，就結束循環
 
 
        # 檢查是否有男子發起約會
@@ -141,17 +148,30 @@ class Girl:
                 man = male_name
                 break
 
+        # 如果被fwb約炮，進行相應處理
+        if self.current_action == "被fwb約炮":
+            if random.randint(1, 3) == 1:  # 1/3的機會妹子答應去S
+                self.current_action = "跟炮友做愛"
+            else:
+                self.current_action = random.choice(["逛街", "工作", "吃飯", "洗澡", "睡覺"])  # 妹子不答應則繼續原有行
+
+        
         if self.current_action in ["逛街", "工作", "吃飯"] and date_initiated:
             self.current_action = "跟男子約會"
             self.meet_man = man
         elif self.current_action == "跟男子約會":
             # 如果上一個動作是約會
-            if random.randint(1, 10) == 1:
+            if random.randint(1, 13) == 1:
                 self.current_action = "被下藥S"
             elif random.randint(1, 5) == 1:
                 self.current_action = "去酒吧"
             else:
                 self.current_action = random.choice(all_actions)
+        elif self.current_action ==  "跟炮友做愛":
+            if random.randint(1, 4) == 1:  # 有3/4的機會繼續交配
+                self.current_action = random.choice(all_actions)
+            else:
+                self.ntr_mating()  # 繼續交配      
         elif self.current_action == "被下藥S":
             self.子宮.append(self.meet_man)  # 將男子名字加入子宮
             if random.randint(1, 6) != 1:  # 5/6機會繼續"被下藥S"
@@ -167,7 +187,7 @@ class Girl:
             if random.randint(1, 4) == 1:  # 有3/4的機會繼續酒醉交配
                 self.current_action = random.choice(all_actions)
             else:
-                self.drunk_mating()  # 繼續酒醉交配      
+                self.ntr_mating()  # 繼續酒醉交配      
 
         elif self.current_action in ["逛街", "工作"]:
             if random.randint(1, 4) == 1:
@@ -189,9 +209,9 @@ class Girl:
  
 
 
-    def drunk_mating(self):
+    def ntr_mating(self):
         """
-        執行酒醉交配的功能。
+        她男交配的功能。
         """
          
         if random.randint(1, 3) == 1:
